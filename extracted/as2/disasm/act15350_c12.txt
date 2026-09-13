@@ -1,0 +1,99 @@
+  ConstantPool x12: myDate | Date | time1 | getMonth | time2 | getDate | shengli | LX_haogan
+  StopSounds  (len=0)
+  Push c8   0
+  Push d    0.0
+  Push c8   1
+  Increment  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  Push d    0.0
+  Push c8   0
+  StringAdd  (len=0)
+  Push c8   3
+  GetURL  (len=0)
+  Push i    1
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   4
+  Push d    0.0
+  Push c8   0
+  StringAdd  (len=0)
+  Push c8   5
+  GetURL  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    2
+  BitLShift  (len=0)
+  Push c8   4
+  StringAdd  (len=0)
+  Push i    18
+  BitLShift  (len=0)
+  DefineFunction2  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 4776
+  Play  (len=0)
+  Jump      +201
+  Push c8   6
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +142
+  Push c8   7
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  Not  (len=0)
+  Push c8   8
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  DefineFunction2  (len=0)
+  Push c8   9
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  DefineFunction2  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 4593
+  Play  (len=0)
+  Jump      +72
+  Push c8   8
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  Not  (len=0)
+  Push c8   9
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  Not  (len=0)
+  DefineFunction2  (len=0)
+  Push c8   10
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  DefineFunction2  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 3968
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 4393
+  Play  (len=0)
+  Jump      +38
+  Push c8   11
+  StringAdd  (len=0)
+  Push i    7
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 4753
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 4753
+  Play  (len=0)
+  End

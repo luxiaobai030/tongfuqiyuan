@@ -1,0 +1,12 @@
+  ConstantPool x3: XG_gongji | XG_chenghao | 新生代女侠
+  Stop  (len=0)
+  Push c8   0
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    30
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   1
+  Push c8   2
+  GetProperty  (len=0)
+  End

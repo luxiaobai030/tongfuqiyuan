@@ -1,0 +1,42 @@
+  ConstantPool x12: smg | mySound | Sound | myMusic | attachSound | _____________________________ | myDate | Date
+  Stop  (len=0)
+  Push c8   0
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   1
+  Push d    0.0
+  Push c8   2
+  Increment  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push i    1
+  Push c8   1
+  StringAdd  (len=0)
+  Push c8   4
+  GetURL  (len=0)
+  Pop  (len=0)
+  Push c8   5
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   6
+  Push d    0.0
+  Push c8   7
+  Increment  (len=0)
+  GetProperty  (len=0)
+  Push c8   8
+  Push d    0.0
+  Push c8   6
+  StringAdd  (len=0)
+  Push c8   9
+  GetURL  (len=0)
+  Push i    1
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   10
+  Push d    0.0
+  Push c8   6
+  StringAdd  (len=0)
+  Push c8   11
+  GetURL  (len=0)
+  GetProperty  (len=0)
+  End

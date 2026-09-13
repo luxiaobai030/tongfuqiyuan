@@ -1,0 +1,30 @@
+  ConstantPool x6: XG_chenghao | 芙蓉女侠 | WLWW | WM | renqi | zhian
+  Stop  (len=0)
+  Push c8   0
+  Push c8   1
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    5
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    2
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   4
+  Push c8   4
+  StringAdd  (len=0)
+  Push i    20
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   5
+  Push c8   5
+  StringAdd  (len=0)
+  Push i    30
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  End

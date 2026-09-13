@@ -1,0 +1,27 @@
+  ConstantPool x4: ZG_meili | ZG_zixin | WM | QCTZ
+  Stop  (len=0)
+  Push c8   0
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    20
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   1
+  Push c8   1
+  StringAdd  (len=0)
+  Push i    20
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    3
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    1
+  Subtract  (len=0)
+  GetProperty  (len=0)
+  End

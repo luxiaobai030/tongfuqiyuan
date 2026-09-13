@@ -1,0 +1,29 @@
+  ConstantPool x4: hp | BOOS_HP | BOOS_gongji | fangyu
+  Push c8   0
+  StringAdd  (len=0)
+  Push d    0.0
+  OP67  (len=0)
+  Not  (len=0)
+  If        +29
+  Push c8   1
+  Push c8   1
+  StringAdd  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   3
+  StringAdd  (len=0)
+  Subtract  (len=0)
+  GetProperty  (len=0)
+  GotoFrame 3047
+  Play  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push d    0.0
+  OP67  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +6
+  GotoFrame 3481
+  Play  (len=0)
+  End

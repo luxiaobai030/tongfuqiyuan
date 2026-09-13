@@ -1,0 +1,54 @@
+  ConstantPool x3: LB_yongqi | tt | JL
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +16
+  Push c8   1
+  Push i    2
+  GetProperty  (len=0)
+  Jump      +15
+  Push c8   1
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   2
+  Push i    12
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    11
+  Push c8   1
+  StringAdd  (len=0)
+  Subtract  (len=0)
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 2283
+  Play  (len=0)
+  Jump      +70
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    2
+  BitLShift  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    3
+  BitLShift  (len=0)
+  Or  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    6
+  BitLShift  (len=0)
+  Or  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 2364
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 2237
+  Play  (len=0)
+  End

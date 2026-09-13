@@ -1,0 +1,45 @@
+  ConstantPool x4: XC_caixue | gg | xxxx | XG_XC
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    200
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +16
+  Push c8   1
+  Push i    3
+  GetProperty  (len=0)
+  Jump      +15
+  Push c8   1
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   2
+  Push i    7
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    6
+  Push c8   1
+  StringAdd  (len=0)
+  Subtract  (len=0)
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 2544
+  Play  (len=0)
+  Jump      +39
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 2949
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 2519
+  Play  (len=0)
+  End

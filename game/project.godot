@@ -1,0 +1,29 @@
+; 同福奇缘 · Godot 移植版
+config_version=5
+
+[application]
+config/name="同福奇缘"
+config/description="武林外传同福客栈 · Flash 原版移植"
+run/main_scene="res://scenes/main.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+
+[autoload]
+GameState="*res://autoload/game_state.gd"
+
+[display]
+window/size/viewport_width=800
+window/size/viewport_height=600
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+
+[importer_defaults]
+
+; 背景大图按有损 webp 导入（原版的画面本来就是有损 webp，再无损存一遍会白白多占一倍体积）
+texture={
+"compress/mode": 1,
+"compress/lossy_quality": 0.9
+}

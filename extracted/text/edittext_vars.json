@@ -1,0 +1,1112 @@
+[
+ {
+  "id": 42,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 115,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 116,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 117,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 118,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 119,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 155,
+  "var": "ZG_JL",
+  "text": ""
+ },
+ {
+  "id": 156,
+  "var": "xiuwei",
+  "text": ""
+ },
+ {
+  "id": 181,
+  "var": "KHDXS_lv",
+  "text": ""
+ },
+ {
+  "id": 187,
+  "var": "LB_chenghao",
+  "text": ""
+ },
+ {
+  "id": 188,
+  "var": "LB_gongji",
+  "text": ""
+ },
+ {
+  "id": 189,
+  "var": "LB_yongqi",
+  "text": ""
+ },
+ {
+  "id": 190,
+  "var": "LB_haogan",
+  "text": ""
+ },
+ {
+  "id": 191,
+  "var": "KHQLS_lv",
+  "text": ""
+ },
+ {
+  "id": 192,
+  "var": "YZDT_lv",
+  "text": ""
+ },
+ {
+  "id": 220,
+  "var": "PSDH_lv",
+  "text": "     "
+ },
+ {
+  "id": 228,
+  "var": "XG_chenghao",
+  "text": ""
+ },
+ {
+  "id": 229,
+  "var": "XG_gongji",
+  "text": ""
+ },
+ {
+  "id": 230,
+  "var": "XG_zhengyi",
+  "text": ""
+ },
+ {
+  "id": 231,
+  "var": "XG_haogan",
+  "text": ""
+ },
+ {
+  "id": 232,
+  "var": "XG_XC",
+  "text": ""
+ },
+ {
+  "id": 233,
+  "var": "SMHS_lv",
+  "text": "     "
+ },
+ {
+  "id": 262,
+  "var": "XC_chenghao",
+  "text": ""
+ },
+ {
+  "id": 263,
+  "var": "XC_zhongcheng",
+  "text": ""
+ },
+ {
+  "id": 264,
+  "var": "XC_caixue",
+  "text": ""
+ },
+ {
+  "id": 265,
+  "var": "XC_haogan",
+  "text": ""
+ },
+ {
+  "id": 266,
+  "var": "XG_XC",
+  "text": ""
+ },
+ {
+  "id": 281,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 282,
+  "var": "ZG_zixin",
+  "text": ""
+ },
+ {
+  "id": 283,
+  "var": "ZG_meili",
+  "text": ""
+ },
+ {
+  "id": 297,
+  "var": "DZ_chenghao",
+  "text": ""
+ },
+ {
+  "id": 298,
+  "var": "DZ_yueli",
+  "text": ""
+ },
+ {
+  "id": 299,
+  "var": "DZ_chuyi",
+  "text": ""
+ },
+ {
+  "id": 300,
+  "var": "DZ_haogan",
+  "text": ""
+ },
+ {
+  "id": 325,
+  "var": "WS_chenghao",
+  "text": ""
+ },
+ {
+  "id": 326,
+  "var": "WS_aixin",
+  "text": ""
+ },
+ {
+  "id": 327,
+  "var": "WS_cixiu",
+  "text": ""
+ },
+ {
+  "id": 328,
+  "var": "WS_haogan",
+  "text": ""
+ },
+ {
+  "id": 362,
+  "var": "XB_chenghao",
+  "text": ""
+ },
+ {
+  "id": 363,
+  "var": "XB_tongxin",
+  "text": ""
+ },
+ {
+  "id": 364,
+  "var": "XB_xuexi",
+  "text": ""
+ },
+ {
+  "id": 365,
+  "var": "XB_haogan",
+  "text": ""
+ },
+ {
+  "id": 395,
+  "var": "ZG_chenghao",
+  "text": ""
+ },
+ {
+  "id": 396,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 397,
+  "var": "ZG_zixin",
+  "text": ""
+ },
+ {
+  "id": 398,
+  "var": "ZG_meili",
+  "text": ""
+ },
+ {
+  "id": 399,
+  "var": "renyuan",
+  "text": ""
+ },
+ {
+  "id": 401,
+  "var": "WLT",
+  "text": ""
+ },
+ {
+  "id": 402,
+  "var": "jiuhuandan",
+  "text": ""
+ },
+ {
+  "id": 404,
+  "var": "smg",
+  "text": ""
+ },
+ {
+  "id": 422,
+  "var": "ch1",
+  "text": ""
+ },
+ {
+  "id": 423,
+  "var": "ch2",
+  "text": ""
+ },
+ {
+  "id": 424,
+  "var": "ch3",
+  "text": ""
+ },
+ {
+  "id": 425,
+  "var": "ch4",
+  "text": ""
+ },
+ {
+  "id": 426,
+  "var": "kzmc",
+  "text": ""
+ },
+ {
+  "id": 428,
+  "var": "zhengjie",
+  "text": ""
+ },
+ {
+  "id": 429,
+  "var": "fuwu",
+  "text": ""
+ },
+ {
+  "id": 430,
+  "var": "yinshi",
+  "text": ""
+ },
+ {
+  "id": 431,
+  "var": "zhian",
+  "text": ""
+ },
+ {
+  "id": 432,
+  "var": "shouzhi",
+  "text": ""
+ },
+ {
+  "id": 433,
+  "var": "hexie",
+  "text": ""
+ },
+ {
+  "id": 434,
+  "var": "rmoney",
+  "text": ""
+ },
+ {
+  "id": 435,
+  "var": "renqi",
+  "text": ""
+ },
+ {
+  "id": 436,
+  "var": "pingjia",
+  "text": ""
+ },
+ {
+  "id": 470,
+  "var": "ch1",
+  "text": ""
+ },
+ {
+  "id": 471,
+  "var": "ch2",
+  "text": ""
+ },
+ {
+  "id": 472,
+  "var": "ch3",
+  "text": ""
+ },
+ {
+  "id": 473,
+  "var": "ch4",
+  "text": ""
+ },
+ {
+  "id": 474,
+  "var": "kzmc",
+  "text": ""
+ },
+ {
+  "id": 476,
+  "var": "zhengjie",
+  "text": ""
+ },
+ {
+  "id": 477,
+  "var": "fuwu",
+  "text": ""
+ },
+ {
+  "id": 478,
+  "var": "yinshi",
+  "text": ""
+ },
+ {
+  "id": 479,
+  "var": "zhian",
+  "text": ""
+ },
+ {
+  "id": 480,
+  "var": "shouzhi",
+  "text": ""
+ },
+ {
+  "id": 481,
+  "var": "hexie",
+  "text": ""
+ },
+ {
+  "id": 482,
+  "var": "rmoney",
+  "text": ""
+ },
+ {
+  "id": 483,
+  "var": "renqi",
+  "text": ""
+ },
+ {
+  "id": 484,
+  "var": "pingjia",
+  "text": ""
+ },
+ {
+  "id": 559,
+  "var": "LB_yongqi",
+  "text": ""
+ },
+ {
+  "id": 560,
+  "var": "LB_haogan",
+  "text": ""
+ },
+ {
+  "id": 561,
+  "var": "guli",
+  "text": ""
+ },
+ {
+  "id": 563,
+  "var": "anwei",
+  "text": ""
+ },
+ {
+  "id": 571,
+  "var": "zuomeng",
+  "text": ""
+ },
+ {
+  "id": 580,
+  "var": "LB_gongji",
+  "text": ""
+ },
+ {
+  "id": 581,
+  "var": "XG_gongji",
+  "text": ""
+ },
+ {
+  "id": 582,
+  "var": "WS_aixin",
+  "text": ""
+ },
+ {
+  "id": 583,
+  "var": "XC_caixue",
+  "text": ""
+ },
+ {
+  "id": 584,
+  "var": "DZ_chuyi",
+  "text": ""
+ },
+ {
+  "id": 599,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 600,
+  "var": "fangyu",
+  "text": ""
+ },
+ {
+  "id": 601,
+  "var": "ZG_JL",
+  "text": ""
+ },
+ {
+  "id": 609,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 611,
+  "var": "TZ_cishu",
+  "text": ""
+ },
+ {
+  "id": 623,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 624,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 625,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 626,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 627,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1017,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1018,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1019,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1020,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1021,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1030,
+  "var": "rmoney",
+  "text": ""
+ },
+ {
+  "id": 1032,
+  "var": "rmoney2",
+  "text": ""
+ },
+ {
+  "id": 1034,
+  "var": "spk1",
+  "text": ""
+ },
+ {
+  "id": 1036,
+  "var": "spk",
+  "text": ""
+ },
+ {
+  "id": 1071,
+  "var": "wupintishi",
+  "text": ""
+ },
+ {
+  "id": 1073,
+  "var": "jiuhuandan",
+  "text": ""
+ },
+ {
+  "id": 1077,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 1078,
+  "var": "ZG_zixin",
+  "text": ""
+ },
+ {
+  "id": 1079,
+  "var": "ZG_meili",
+  "text": ""
+ },
+ {
+  "id": 1080,
+  "var": "ZG_JL",
+  "text": ""
+ },
+ {
+  "id": 1081,
+  "var": "xiuwei",
+  "text": ""
+ },
+ {
+  "id": 1082,
+  "var": "renyuan",
+  "text": ""
+ },
+ {
+  "id": 1101,
+  "var": "wupintishi",
+  "text": ""
+ },
+ {
+  "id": 1107,
+  "var": "WLT",
+  "text": ""
+ },
+ {
+  "id": 1108,
+  "var": "XC_zhongcheng",
+  "text": ""
+ },
+ {
+  "id": 1109,
+  "var": "zhengjie",
+  "text": ""
+ },
+ {
+  "id": 1110,
+  "var": "fuwu",
+  "text": ""
+ },
+ {
+  "id": 1111,
+  "var": "DZ_yueli",
+  "text": ""
+ },
+ {
+  "id": 1112,
+  "var": "XB_tongxin",
+  "text": ""
+ },
+ {
+  "id": 1113,
+  "var": "WS_aixin",
+  "text": ""
+ },
+ {
+  "id": 1126,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1127,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1128,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1129,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1130,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1132,
+  "var": "xiaomi",
+  "text": ""
+ },
+ {
+  "id": 1139,
+  "var": "WLT",
+  "text": ""
+ },
+ {
+  "id": 1178,
+  "var": "WS_aixin",
+  "text": ""
+ },
+ {
+  "id": 1179,
+  "var": "WS_cixiu",
+  "text": ""
+ },
+ {
+  "id": 1182,
+  "var": "WS_aixin",
+  "text": ""
+ },
+ {
+  "id": 1183,
+  "var": "WS_cixiu",
+  "text": ""
+ },
+ {
+  "id": 1188,
+  "var": "XC_caixue",
+  "text": ""
+ },
+ {
+  "id": 1191,
+  "var": "XC_caixue",
+  "text": ""
+ },
+ {
+  "id": 1201,
+  "var": "DZ_yueli",
+  "text": ""
+ },
+ {
+  "id": 1202,
+  "var": "DZ_chuyi",
+  "text": ""
+ },
+ {
+  "id": 1205,
+  "var": "DZ_yueli",
+  "text": ""
+ },
+ {
+  "id": 1206,
+  "var": "DZ_chuyi",
+  "text": ""
+ },
+ {
+  "id": 1211,
+  "var": "jiuhuandan",
+  "text": ""
+ },
+ {
+  "id": 1238,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1243,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1244,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1245,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1246,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1247,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1267,
+  "var": "taobao",
+  "text": ""
+ },
+ {
+  "id": 1270,
+  "var": "taobao",
+  "text": ""
+ },
+ {
+  "id": 1302,
+  "var": "guangjietishi",
+  "text": ""
+ },
+ {
+  "id": 1307,
+  "var": "guangjietishi",
+  "text": ""
+ },
+ {
+  "id": 1311,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1312,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1313,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1314,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1315,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1542,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1543,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1544,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1545,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1546,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1768,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1769,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1770,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1771,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1772,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 1914,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 1915,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 1916,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 1917,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 1918,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 2025,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 2026,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 2027,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 2028,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 2029,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 2089,
+  "var": "guaxiang",
+  "text": ""
+ },
+ {
+  "id": 2090,
+  "var": "wlww",
+  "text": ""
+ },
+ {
+  "id": 2091,
+  "var": "wm",
+  "text": ""
+ },
+ {
+  "id": 2092,
+  "var": "day_tishi",
+  "text": ""
+ },
+ {
+  "id": 2093,
+  "var": "money_tishi",
+  "text": ""
+ },
+ {
+  "id": 2178,
+  "var": "diren_HP",
+  "text": ""
+ },
+ {
+  "id": 2179,
+  "var": "diren_gongji",
+  "text": ""
+ },
+ {
+  "id": 2194,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 2195,
+  "var": "fangyu",
+  "text": ""
+ },
+ {
+  "id": 2196,
+  "var": "ZG_zixin",
+  "text": ""
+ },
+ {
+  "id": 2197,
+  "var": "ZG_meili",
+  "text": ""
+ },
+ {
+  "id": 2198,
+  "var": "renyuan",
+  "text": ""
+ },
+ {
+  "id": 2200,
+  "var": "ZG_JL",
+  "text": ""
+ },
+ {
+  "id": 2414,
+  "var": "LB_money",
+  "text": ""
+ },
+ {
+  "id": 2580,
+  "var": "BOOS_HP",
+  "text": ""
+ },
+ {
+  "id": 2581,
+  "var": "BOOS_gongji",
+  "text": ""
+ },
+ {
+  "id": 2583,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 2584,
+  "var": "fangyu",
+  "text": ""
+ },
+ {
+  "id": 2585,
+  "var": "ZG_zixin",
+  "text": ""
+ },
+ {
+  "id": 2586,
+  "var": "ZG_meili",
+  "text": ""
+ },
+ {
+  "id": 2587,
+  "var": "renyuan",
+  "text": ""
+ },
+ {
+  "id": 2588,
+  "var": "ZG_JL",
+  "text": ""
+ },
+ {
+  "id": 2607,
+  "var": "LB_money",
+  "text": ""
+ },
+ {
+  "id": 2700,
+  "var": "LB_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2701,
+  "var": "LB_haogan",
+  "text": ""
+ },
+ {
+  "id": 2702,
+  "var": "XG_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2703,
+  "var": "XG_haogan",
+  "text": ""
+ },
+ {
+  "id": 2704,
+  "var": "XC_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2705,
+  "var": "XC_haogan",
+  "text": ""
+ },
+ {
+  "id": 2706,
+  "var": "DZ_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2707,
+  "var": "DZ_haogan",
+  "text": ""
+ },
+ {
+  "id": 2708,
+  "var": "WS_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2709,
+  "var": "WS_haogan",
+  "text": ""
+ },
+ {
+  "id": 2710,
+  "var": "XB_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2711,
+  "var": "XB_haogan",
+  "text": ""
+ },
+ {
+  "id": 2712,
+  "var": "ZG_chenghao",
+  "text": ""
+ },
+ {
+  "id": 2713,
+  "var": "ZG_meili",
+  "text": ""
+ },
+ {
+  "id": 2714,
+  "var": "ZG_zixin",
+  "text": ""
+ },
+ {
+  "id": 2715,
+  "var": "hp",
+  "text": ""
+ },
+ {
+  "id": 2716,
+  "var": "renyuan",
+  "text": ""
+ },
+ {
+  "id": 2717,
+  "var": "renqi",
+  "text": ""
+ },
+ {
+  "id": 2718,
+  "var": "WLWW",
+  "text": ""
+ },
+ {
+  "id": 2719,
+  "var": "WM",
+  "text": ""
+ },
+ {
+  "id": 2720,
+  "var": "hexie",
+  "text": ""
+ },
+ {
+  "id": 2721,
+  "var": "kzmc",
+  "text": ""
+ },
+ {
+  "id": 2722,
+  "var": "money",
+  "text": ""
+ }
+]

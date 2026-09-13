@@ -1,0 +1,31 @@
+  ConstantPool x2: XB_wan | day
+  Push c8   0
+  StringAdd  (len=0)
+  Push d    0.0
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 838
+  Play  (len=0)
+  Jump      +70
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 823
+  Play  (len=0)
+  Jump      +38
+  Push c8   1
+  StringAdd  (len=0)
+  Push i    65
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 829
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 827
+  Play  (len=0)
+  End

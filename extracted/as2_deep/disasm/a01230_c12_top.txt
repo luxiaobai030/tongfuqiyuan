@@ -1,0 +1,22 @@
+  ConstantPool x1: WLRW
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 858
+  Play  (len=0)
+  Jump      +42
+  Push c8   0
+  StringAdd  (len=0)
+  Push d    0.0
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 23
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 419
+  Play  (len=0)
+  End

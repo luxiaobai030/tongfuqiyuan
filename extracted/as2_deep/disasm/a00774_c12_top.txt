@@ -1,0 +1,33 @@
+  ConstantPool x8: WLWW | WM | renqi | XC_zhongcheng | ch1 | 道德之家 | XC_chenghao | 大义书生
+  Stop  (len=0)
+  Push c8   0
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    2
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   1
+  Push c8   1
+  StringAdd  (len=0)
+  Push i    3
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    20
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    10
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   4
+  Push c8   5
+  GetProperty  (len=0)
+  Push c8   6
+  Push c8   7
+  GetProperty  (len=0)
+  End

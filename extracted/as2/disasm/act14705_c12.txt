@@ -1,0 +1,127 @@
+  ConstantPool x5: ss | LB_money | money | money_tishi | 文
+  Push c8   0
+  Push i    6
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +44
+  Push c8   1
+  Push i    250
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    150
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   2
+  StringAdd  (len=0)
+  Push c8   4
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    2
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +44
+  Push c8   1
+  Push i    350
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    250
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   2
+  StringAdd  (len=0)
+  Push c8   4
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    3
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +44
+  Push c8   1
+  Push i    350
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    350
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   2
+  StringAdd  (len=0)
+  Push c8   4
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    4
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +44
+  Push c8   1
+  Push i    450
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    450
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   2
+  StringAdd  (len=0)
+  Push c8   4
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    5
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +49
+  Push c8   1
+  Push i    850
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    850
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   2
+  StringAdd  (len=0)
+  Push c8   4
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Jump      +44
+  Push c8   1
+  Push i    550
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    50
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   2
+  StringAdd  (len=0)
+  Push c8   4
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  End

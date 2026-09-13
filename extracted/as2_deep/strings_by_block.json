@@ -1,0 +1,846 @@
+{
+ "a00000_c12_top.bin": [
+  "a",
+  "getBytesLoaded",
+  "b",
+  "getBytesTotal",
+  "loaded",
+  "myloading",
+  "gotoAndPlay",
+  "",
+  "best"
+ ],
+ "a00004_c12_top.bin": [
+  "smg",
+  "mySound",
+  "Sound",
+  "myMusic",
+  "attachSound",
+  "_____________________________",
+  "myDate",
+  "Date",
+  "time1",
+  "getMonth",
+  "time2",
+  "getDate"
+ ],
+ "a00021_c12_top.bin": [
+  "time0",
+  "y1",
+  "y2",
+  "waichu",
+  "gxx",
+  "guaxiang",
+  "凶",
+  "吉"
+ ],
+ "a00111_c12_top.bin": [
+  "zhengjie",
+  "XG_haogan",
+  "fuwu",
+  "LB_haogan",
+  "yinshi",
+  "DZ_chuyi",
+  "zhian",
+  "WS_haogan",
+  "shouzhi",
+  "XC_caixue",
+  "pingjia",
+  "都还不错吧，如果再提高一点就完美了！",
+  "我们感到非常满意，好象没什么缺点了！",
+  "同福客栈是我平生所见客栈之典范，你真是善于经营！",
+  "ch3",
+  "出类拔萃",
+  "凑合着能吃吧，反正吃不死人就行"
+ ],
+ "a00118_c12_top.bin": [
+  "zhengjie",
+  "XG_haogan",
+  "fuwu",
+  "LB_haogan",
+  "yinshi",
+  "DZ_chuyi",
+  "zhian",
+  "WS_haogan",
+  "shouzhi",
+  "XC_caixue",
+  "pingjia",
+  "都还不错吧，如果再提高一点就完美了！",
+  "我们感到非常满意，好象没什么缺点了！",
+  "同福客栈是我平生所见客栈之典范，你真是善于经营！",
+  "ch3",
+  "出类拔萃",
+  "凑合着能吃吧，反正吃不死人就行"
+ ],
+ "a00152_c12_top.bin": [
+  "yuehui"
+ ],
+ "a00170_c12_top.bin": [
+  "ZG_meili",
+  "ZG_zixin",
+  "WM",
+  "QCTZ"
+ ],
+ "a00171_c12_top.bin": [
+  "LB_haogan",
+  "guli",
+  "谢谢你，玉。你的话我一直都会放在心上！  老白勇气+5",
+  "LB_yongqi",
+  "无论将来发生什么事，我都不会忘记，我身边还有个人，一直鼓励我，支持我！  老白勇气+10",
+  "我只在乎你，贼在乎——俺稀罕你！(老白勇气+15)"
+ ],
+ "a00173_c12_top.bin": [
+  "LB_yongqi",
+  "anwei",
+  "唉，我的将来有时候会感到一片迷茫，不知道自己现在的选择是否正确，也许当年...不过现在能和你们大家一起生活，我还是满足了。  老白好感+5",
+  "LB_haogan",
+  "我现在才知道，每个成功男人背后有个好女人——这句话的意思！  老白好感+10",
+  "玉，相信我，无论发生什么事，我都会保护你！我们牵着的手，永远不会被分开！(老白好感+15)"
+ ],
+ "a00174_c12_top.bin": [
+  "zm",
+  "zuomeng",
+  "展堂.......",
+  "额的钱.....额的琉璃瓦片.....",
+  "小贝......洗脸.....",
+  "          一夜过去",
+  "hexie"
+ ],
+ "a00175_c12_top.bin": [
+  "day",
+  "day_tishi",
+  "天",
+  "hexie",
+  "chuf",
+  "dat",
+  "xiuc",
+  "houy",
+  "kezdm",
+  "XC_zhongcheng",
+  "XC_caixue",
+  "nandu",
+  "cs"
+ ],
+ "a00176_c12_top.bin": [
+  "LB_yongqi",
+  "cc",
+  "hp",
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a00177_c12_top.bin": [
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a00274_c12_top.bin": [
+  "WM"
+ ],
+ "a00293_c12_top.bin": [
+  "WM"
+ ],
+ "a00301_c12_top.bin": [
+  "WM"
+ ],
+ "a00305_c12_top.bin": [
+  "WM"
+ ],
+ "a00309_c12_top.bin": [
+  "WM"
+ ],
+ "a00318_c12_top.bin": [
+  "WM"
+ ],
+ "a00333_c12_top.bin": [
+  "WM"
+ ],
+ "a00355_c12_top.bin": [
+  "XB_wan",
+  "day"
+ ],
+ "a00356_c12_top.bin": [
+  "vvvv",
+  "spk1",
+  "看这是什么？！哈哈，人参也，嫂子！     生命+2",
+  "hp",
+  "你看我抓到了什么？何首乌，哈哈，我厉害吧！     魅力+2",
+  "ZG_meili",
+  "这个是很希奇的东西哦！~~~~穿——山——甲——的外壳！嘻，放心这是我捡的，穿山甲是国家保护动物，我是不会去伤害它的！     防御+1 ",
+  "fangyu",
+  "不知道这个是什么花，不过挺漂亮的~！（小贝采的是情花，后来秀才吧它要去，送给了小郭）    秀才和小郭感情+2",
+  "XG_XC",
+  "倒霉透了，今天什么好玩的东西都没发现！我先去睡觉了（佟湘玉：先洗脸！）"
+ ],
+ "a00358_c12_top.bin": [
+  "mmmm",
+  "spk",
+  "你看我抓的这条鱼怎么样？全身白色也~！     魅力+4",
+  "ZG_meili",
+  "小郭姐姐，我今天在河边玩的时候遇到了一个人，他说什么正在练“飞涛掌”，好象要做到什么川流不息......     小郭攻击+3",
+  "XG_gongji",
+  "快来帮我抬一下，我抓了好——多——王——八！     生命+3 ",
+  "hp",
+  "倒霉透了，正在河边玩，不小心摔了一交，弄得一身泥！我先去睡觉了（佟湘玉：先洗脸！）"
+ ],
+ "a00359_c12_top.bin": [
+  "QCTZ",
+  "WM",
+  "ZG_meili",
+  "ZG_zixin"
+ ],
+ "a00413_c12_top.bin": [
+  "qa"
+ ],
+ "a00436_c12_top.bin": [
+  "wpzz"
+ ],
+ "a00453_c12_top.bin": [
+  "WLWW"
+ ],
+ "a00454_c12_top.bin": [
+  "WLWW"
+ ],
+ "a00455_c12_top.bin": [
+  "WLWW"
+ ],
+ "a00480_c12_top.bin": [
+  "TBJH"
+ ],
+ "a00481_c12_top.bin": [
+  "TBWP",
+  "taobao",
+  "恭喜您得到《史记》！           秀才才学+10",
+  "XC_caixue",
+  "恭喜您得到雪颜玉瓷瓶          金钱+2000",
+  "money",
+  "money_tishi",
+  "文",
+  "恭喜您兰亭序          金钱+10000",
+  "恭喜您得到庖丁菜刀          大嘴厨艺+20",
+  "DZ_chuyi",
+  "恭喜您得到大力金刚指秘籍     老白攻击+10",
+  "LB_gongji",
+  "恭喜您得到黯然销魂掌秘籍      小郭攻击+20",
+  "XG_gongji",
+  "恭喜您得到软猬甲             防御+1",
+  "fangyu",
+  "恭喜您得到清明上河图         金钱+15000",
+  "恭喜您得到免死金牌          老白勇气+10",
+  "LB_yongqi",
+  "恭喜您得到贪玩偶像         小贝童心+10",
+  "XB_tongxin",
+  "恭喜您得到双花大龙瓶       金钱+5000",
+  "恭喜您得到长信宫灯         金钱+3000",
+  "恭喜您得到神秘物品——天之雪颜的游戏企化稿！您可以在80天时和他兑换奖励！",
+  "tzxy",
+  "恭喜您得到官窑青纹花碗       金钱+1000 ",
+  "恭喜您得到玉如意            金钱+500 "
+ ],
+ "a00483_c12_top.bin": [
+  "GJ",
+  "day",
+  "JZG_haogan"
+ ],
+ "a00484_c12_top.bin": [
+  "JXY"
+ ],
+ "a00505_c12_top.bin": [
+  "LLLLL"
+ ],
+ "a00509_c12_top.bin": [
+  "ZG_meili",
+  "guangjietishi",
+  "十八里铺的街道上有人注意到了佟湘玉的出现：那不是金掌柜佟湘玉吗？    人气+5",
+  "renqi",
+  "十八里铺流行一句话：陪老婆逛街的男人和佟湘玉走在一起，是件危险而又快乐的事！    人气+10",
+  "老白得到急报：湘玉危险！干到十八里铺一看，里三层外三层都是人，有找她签名的，有希望能和影画像的，甚至有请代言广告的...老白施展轻功才将湘玉带走...    人气+30",
+  "似乎没什么人认识佟湘玉似的：唉，额这个“金掌柜”咋没什么名气呢？    自信-5",
+  "ZG_zixin"
+ ],
+ "a00510_c12_top.bin": [
+  "guangjietishi",
+  "两人如玉的美人一起逛街，引发的后果是灾难性的。不知多少人为了一睹芳容而被其他人踩破鞋扯破衣，衙门紧急派邢捕头维持秩序，捕头开路，这才平息了骚动。       人气+20",
+  "renqi"
+ ],
+ "a00518_c12_top.bin": [
+  "WS_haogan",
+  "renyuan"
+ ],
+ "a00519_c12_top.bin": [
+  "datangqingjie"
+ ],
+ "a00520_c12_top.bin": [
+  "chufangqingjie"
+ ],
+ "a00521_c12_top.bin": [
+  "houyuanqingjie"
+ ],
+ "a00551_c12_top.bin": [
+  "DZ_chenghao",
+  "同福大厨",
+  "renqi",
+  "rmoney",
+  "DZ_haogan",
+  "WM",
+  "yinshi"
+ ],
+ "a00561_c12_top.bin": [
+  "DZ_haogan",
+  "DZ_chuyi"
+ ],
+ "a00587_c12_top.bin": [
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a00619_c12_top.bin": [
+  "hexie",
+  "renyuan",
+  "WS_aixin",
+  "zhian",
+  "ch2",
+  "模范商户",
+  "WM"
+ ],
+ "a00667_c12_top.bin": [
+  "zhengjie",
+  "XG_gongji",
+  "XG_chenghao",
+  "豆腐女侠",
+  "WM"
+ ],
+ "a00696_c12_top.bin": [
+  "WM"
+ ],
+ "a00706_c12_top.bin": [
+  "smg",
+  "WM"
+ ],
+ "a00709_c12_top.bin": [
+  "XG_haogan"
+ ],
+ "a00711_c12_top.bin": [
+  "QCTZ",
+  "WM",
+  "ZG_meili",
+  "ZG_zixin"
+ ],
+ "a00720_c12_top.bin": [
+  "smg",
+  "WM"
+ ],
+ "a00774_c12_top.bin": [
+  "WLWW",
+  "WM",
+  "renqi",
+  "XC_zhongcheng",
+  "ch1",
+  "道德之家",
+  "XC_chenghao",
+  "大义书生"
+ ],
+ "a00886_c12_top.bin": [
+  "ZG_meili",
+  "DZ_chuyi",
+  "LB_gongji",
+  "XG_gongji",
+  "WS_aixin",
+  "WM",
+  "WLWW"
+ ],
+ "a00926_c12_top.bin": [
+  "WS_aixin",
+  "WM"
+ ],
+ "a00936_c12_top.bin": [
+  "XC_caixue",
+  "renqi"
+ ],
+ "a00948_c12_top.bin": [
+  "renqi",
+  "XC_chenghao",
+  "草包先生"
+ ],
+ "a00979_c12_top.bin": [
+  "WLWW",
+  "WM",
+  "renqi",
+  "renyuan",
+  "ZG_zixin",
+  "money",
+  "money_tishi",
+  "文",
+  "ZG_chenghao",
+  "玉美人"
+ ],
+ "a00984_c12_top.bin": [
+  "ZG_meili"
+ ],
+ "a01049_c12_top.bin": [
+  "XC_chenghao",
+  "翰林隐士",
+  "WM",
+  "XC_caixue",
+  "XC_zhongcheng",
+  "renqi",
+  "renyuan",
+  "smg"
+ ],
+ "a01051_c12_top.bin": [
+  "smg",
+  "WM"
+ ],
+ "a01062_c12_top.bin": [
+  "money",
+  "money_tishi",
+  "文",
+  "LB_haogan",
+  "XG_haogan",
+  "renqi",
+  "renyuan"
+ ],
+ "a01063_c12_top.bin": [
+  "LB_haogan",
+  "XG_haogan",
+  "renyuan"
+ ],
+ "a01068_c12_top.bin": [
+  "LB_haogan",
+  "ZG_zixin"
+ ],
+ "a01072_c12_top.bin": [
+  "DZ_yueli"
+ ],
+ "a01093_c12_top.bin": [
+  "XG_gongji",
+  "XG_chenghao",
+  "新生代女侠"
+ ],
+ "a01097_c12_top.bin": [
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a01115_c12_top.bin": [
+  "ZG_chenghao",
+  "人气女主角",
+  "WM",
+  "renyuan"
+ ],
+ "a01126_c12_top.bin": [
+  "XG_chenghao",
+  "芙蓉女侠",
+  "WLWW",
+  "WM",
+  "renqi",
+  "zhian"
+ ],
+ "a01127_c12_top.bin": [
+  "LB_gongji"
+ ],
+ "a01128_c12_top.bin": [
+  "DZ_chuyi",
+  "DZ_yueli",
+  "DZ_haogan"
+ ],
+ "a01129_c12_top.bin": [
+  "XG_gongji"
+ ],
+ "a01133_c12_top.bin": [
+  "renqi",
+  "WM",
+  "XB_tongxin",
+  "XB_xuexi"
+ ],
+ "a01141_c12_top.bin": [
+  "DZ_yueli",
+  "renqi",
+  "WM",
+  "XB_tongxin",
+  "XB_xuexi"
+ ],
+ "a01148_c12_top.bin": [
+  "XG_zhengyi",
+  "renqi",
+  "WM",
+  "XB_tongxin",
+  "XB_xuexi"
+ ],
+ "a01152_c12_top.bin": [
+  "WS_cixiu",
+  "renqi",
+  "WM",
+  "XB_tongxin",
+  "XB_xuexi"
+ ],
+ "a01163_c12_top.bin": [
+  "XB_chenghao",
+  "破坏之王",
+  "WM"
+ ],
+ "a01164_c12_top.bin": [
+  "cxxc"
+ ],
+ "a01165_c12_top.bin": [
+  "XC_caixue"
+ ],
+ "a01171_c12_top.bin": [
+  "XC_caixue",
+  "WM"
+ ],
+ "a01187_c12_top.bin": [
+  "WM",
+  "XG_chenghao",
+  "野蛮女友"
+ ],
+ "a01195_c12_top.bin": [
+  "WM"
+ ],
+ "a01200_c12_top.bin": [
+  "QCTZ",
+  "hp",
+  "ZG_JL"
+ ],
+ "a01213_c12_top.bin": [
+  "LB_yongqi",
+  "tt",
+  "JL"
+ ],
+ "a01215_c12_top.bin": [
+  "DXJL",
+  "diren_HP",
+  "LB_gongji",
+  "KHDXS_gongji"
+ ],
+ "a01216_c12_top.bin": [
+  "DXJL",
+  "diren_HP",
+  "YZDT_gongji",
+  "LB_gongji"
+ ],
+ "a01219_c12_top.bin": [
+  "diren_HP",
+  "KHQLS_gongji",
+  "LB_gongji"
+ ],
+ "a01221_c12_top.bin": [
+  "diren_HP",
+  "XG_gongji",
+  "PSDH_gongji",
+  "diren_FN"
+ ],
+ "a01223_c12_top.bin": [
+  "diren_FN",
+  "HP",
+  "diren_gongji",
+  "fangyu"
+ ],
+ "a01224_c12_top.bin": [
+  "hp",
+  "hp_linshi",
+  "xiuwei",
+  "ZG_JL",
+  "WLT",
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a01227_c12_top.bin": [
+  "GN",
+  "diren_hp",
+  "diren_hplinshi",
+  "WLRW",
+  "WLWW"
+ ],
+ "a01230_c12_top.bin": [
+  "WLRW"
+ ],
+ "a01234_c12_top.bin": [
+  "WLRW"
+ ],
+ "a01236_c12_top.bin": [
+  "dd",
+  "cc"
+ ],
+ "a01237_c12_top.bin": [
+  "ss",
+  "LB_money",
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a01240_c12_top.bin": [
+  "diren_FN",
+  "HP",
+  "diren_gongji",
+  "fangyu"
+ ],
+ "a01241_c12_top.bin": [
+  "diren_HP",
+  "XG_gongji"
+ ],
+ "a01244_c12_top.bin": [
+  "diren_FN",
+  "HP",
+  "diren_gongji",
+  "fangyu",
+  "hp",
+  "DZ_chuyi"
+ ],
+ "a01246_c12_top.bin": [
+  "HP",
+  "diren_gongji",
+  "fangyu"
+ ],
+ "a01248_c12_top.bin": [
+  "ppp",
+  "diren_HP",
+  "WS_aixin"
+ ],
+ "a01250_c12_top.bin": [
+  "diren_FN",
+  "HP",
+  "diren_gongji",
+  "fangyu"
+ ],
+ "a01253_c12_top.bin": [
+  "diren_HP",
+  "diren_FN"
+ ],
+ "a01255_c12_top.bin": [
+  "XC_caixue",
+  "gg",
+  "xxxx",
+  "XG_XC"
+ ],
+ "a01257_c12_top.bin": [
+  "diren_HP",
+  "XG_gongji",
+  "SMHS_gongji",
+  "diren_FN"
+ ],
+ "a01262_c12_top.bin": [
+  "QCTZ",
+  "hp",
+  "ZG_JL"
+ ],
+ "a01275_c12_top.bin": [
+  "LB_yongqi",
+  "tt",
+  "JL"
+ ],
+ "a01276_c12_top.bin": [
+  "BOOS_HP",
+  "LB_gongji",
+  "KHDXS_gongji"
+ ],
+ "a01277_c12_top.bin": [
+  "DXJL",
+  "BOOS_HP",
+  "YZDT_gongji",
+  "LB_gongji"
+ ],
+ "a01278_c12_top.bin": [
+  "BOOS_HP",
+  "KHQLS_gongji",
+  "LB_gongji"
+ ],
+ "a01279_c12_top.bin": [
+  "BOOS_HP",
+  "XG_gongji",
+  "PSDH_gongji"
+ ],
+ "a01280_c12_top.bin": [
+  "qqqq",
+  "zhandou_GSYL",
+  "gotoAndPlay",
+  "hp",
+  "BOOS_gongji",
+  "fangyu",
+  "ZG_JL"
+ ],
+ "a01281_c12_top.bin": [
+  "hp",
+  "BOOS_HP",
+  "BOOS_gongji",
+  "fangyu"
+ ],
+ "a01284_c12_top.bin": [
+  "dd",
+  "cc"
+ ],
+ "a01285_c12_top.bin": [
+  "ss",
+  "LB_money",
+  "money",
+  "money_tishi",
+  "文"
+ ],
+ "a01288_c12_top.bin": [
+  "HP",
+  "BOOS_gongji",
+  "fangyu"
+ ],
+ "a01289_c12_top.bin": [
+  "BOOS_HP",
+  "XG_gongji",
+  "HP"
+ ],
+ "a01290_c12_top.bin": [
+  "qqqq",
+  "zhandou_GSYL",
+  "gotoAndPlay",
+  "ZG_JL",
+  "hp",
+  "BOOS_gongji",
+  "fangyu"
+ ],
+ "a01291_c12_top.bin": [
+  "hp",
+  "DZ_chuyi",
+  "HP"
+ ],
+ "a01292_c12_top.bin": [
+  "qqqq",
+  "zhandou_GSYL",
+  "gotoAndPlay",
+  "ZG_JL",
+  "HP",
+  "BOOS_gongji",
+  "fangyu"
+ ],
+ "a01294_c12_top.bin": [
+  "lll",
+  "BOOS_HP",
+  "BOOS_hp",
+  "WS_aixin"
+ ],
+ "a01295_c12_top.bin": [
+  "qqqq",
+  "zhandou_GSYL",
+  "gotoAndPlay",
+  "hp",
+  "BOOS_gongji",
+  "fangyu",
+  "ZG_JL"
+ ],
+ "a01298_c12_top.bin": [
+  "BOOS_HP"
+ ],
+ "a01300_c12_top.bin": [
+  "BOOS_HP",
+  "XG_gongji",
+  "SMHS_gongji"
+ ],
+ "a01301_c12_top.bin": [
+  "myDate",
+  "Date",
+  "time1",
+  "getMonth",
+  "time2",
+  "getDate",
+  "shengli",
+  "LX_haogan",
+  "WLWW",
+  "WM",
+  "nandu",
+  "smg"
+ ],
+ "a01521_c12_top.bin": [
+  "JZG_haogan",
+  "LX_haogan",
+  "tzxy",
+  "WLRW",
+  "waichu",
+  "xxbb",
+  "yh",
+  "cs",
+  "ws",
+  "________________",
+  "WLT",
+  "jiuhuandan",
+  "QCTZ",
+  "__________________",
+  "cc",
+  "fangyu",
+  "KHDXS_lv",
+  "KHDXS_gongji",
+  "KHQLS_lv",
+  "KHQLS_gongji",
+  "YZDT_lv",
+  "YZDT_gongji",
+  "PSDH_lv",
+  "PSDH_gongji",
+  "SMHS_lv",
+  "SMHS_gongji",
+  "ZG_HJRT",
+  "______________________",
+  "XB_wan",
+  "________________________",
+  "aa1",
+  "aa2",
+  "aa3",
+  "hh",
+  "ff",
+  "kzmc",
+  "同福客栈",
+  "__________________________",
+  "_______________________________",
+  "BOOS_gongji",
+  "BOOS_hp",
+  "__________________________________",
+  "money",
+  "money_tishi",
+  "文",
+  "WLWW",
+  "WM",
+  "day",
+  "day_tishi",
+  "天",
+  "rmoney",
+  "hexie",
+  "________________________________",
+  "LB_chenhao",
+  "跑堂的",
+  "LB_gongji",
+  "LB_yongqi",
+  "LB_haogan",
+  "______________________________",
+  "ZG_JL",
+  "xiuwei",
+  "XG_chenhao",
+  "打杂的",
+  "XG_gongji",
+  "XG_zhengyi",
+  "XG_haogan",
+  "XG_XC",
+  "XC_chenhao",
+  "穷酸秀才",
+  "XC_zhongchen",
+  "XC_caixue",
+  "XC_haogan",
+  "_____________________________",
+  "DZ_chenhao",
+  "一个厨子",
+  "DZ_yueli",
+  "DZ_chuyi",
+  "DZ_haogan",
+  "WS_chenhao",
+  "天真小捕快",
+  "WS_aixin",
+  "WS_cixiu",
+  "WS_haogan",
+  "XB_chenhao",
+  "小丫头片子",
+  "XB_tongxin",
+  "XB_xuexi",
+  "XB_haogan",
+  "ZG_chenhao",
+  "掌柜",
+  "ZG_zixin",
+  "ZG_meili",
+  "renyuan",
+  "renqi"
+ ]
+}

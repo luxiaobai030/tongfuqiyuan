@@ -1,0 +1,26 @@
+  ConstantPool x1: JXY
+  Push c8   0
+  Push i    4
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push d    0.0
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 991
+  Play  (len=0)
+  Jump      +38
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 995
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 1000
+  Play  (len=0)
+  End

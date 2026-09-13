@@ -1,0 +1,66 @@
+  ConstantPool x8: ZG_meili | guangjietishi | 十八里铺的街道上有人注意到了佟湘玉的出现：那不是金掌柜佟湘玉吗？    人气+5 | renqi | 十八里铺流行一句话：陪老婆逛街的男人和佟湘玉走在一起，是件危险而又快乐的事！    人气+10 | 老白得到急报：湘玉危险！干到十八里铺一看，里三层外三层都是人，有找她签名的，有希望能和影画像的，甚至有请代言广告的...老白施展轻功才将湘玉带走...    人气+30 | 似乎没什么人认识佟湘玉似的：唉，额这个“金掌柜”咋没什么名气呢？    自信-5 | ZG_zixin
+  Stop  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    100
+  BitXor  (len=0)
+  Not  (len=0)
+  If        +31
+  Push c8   1
+  Push c8   2
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    5
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Jump      +151
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    150
+  BitXor  (len=0)
+  Not  (len=0)
+  If        +31
+  Push c8   1
+  Push c8   4
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    10
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Jump      +99
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    200
+  BitXor  (len=0)
+  Not  (len=0)
+  If        +31
+  Push c8   1
+  Push c8   5
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    30
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Jump      +47
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    50
+  BitXor  (len=0)
+  Not  (len=0)
+  If        +26
+  Push c8   1
+  Push c8   6
+  GetProperty  (len=0)
+  Push c8   7
+  Push c8   7
+  StringAdd  (len=0)
+  Push i    5
+  Subtract  (len=0)
+  GetProperty  (len=0)
+  End

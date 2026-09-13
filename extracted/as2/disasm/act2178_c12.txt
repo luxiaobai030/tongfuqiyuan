@@ -1,0 +1,53 @@
+  ConstantPool x6: LB_haogan | guli | 谢谢你，玉。你的话我一直都会放在心上！  老白勇气+5 | LB_yongqi | 无论将来发生什么事，我都不会忘记，我身边还有个人，一直鼓励我，支持我！  老白勇气+10 | 我只在乎你，贼在乎——俺稀罕你！(老白勇气+15)
+  Stop  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    60
+  OP67  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +26
+  Push c8   1
+  Push c8   2
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    5
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push i    60
+  Push c8   0
+  StringAdd  (len=0)
+  BitXor  (len=0)
+  Push i    80
+  OP67  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +26
+  Push c8   1
+  Push c8   4
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    10
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    90
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +26
+  Push c8   1
+  Push c8   5
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    15
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  End

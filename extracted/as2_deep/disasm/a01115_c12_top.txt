@@ -1,0 +1,18 @@
+  ConstantPool x4: ZG_chenghao | 人气女主角 | WM | renyuan
+  Stop  (len=0)
+  Push c8   0
+  Push c8   1
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    3
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    10
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  End

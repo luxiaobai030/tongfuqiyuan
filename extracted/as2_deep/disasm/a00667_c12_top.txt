@@ -1,0 +1,23 @@
+  ConstantPool x5: zhengjie | XG_gongji | XG_chenghao | 豆腐女侠 | WM
+  Stop  (len=0)
+  Push c8   0
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    20
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   1
+  StringAdd  (len=0)
+  Push i    9
+  BitOr  (len=0)
+  Pop  (len=0)
+  Push c8   2
+  Push c8   3
+  GetProperty  (len=0)
+  Push c8   4
+  Push c8   4
+  StringAdd  (len=0)
+  Push i    2
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  End

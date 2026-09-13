@@ -1,0 +1,32 @@
+  ConstantPool x8: time0 | y1 | y2 | waichu | gxx | guaxiang | 凶 | 吉
+  Stop  (len=0)
+  Push c8   0
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   1
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   2
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   3
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   4
+  Push i    4
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   4
+  StringAdd  (len=0)
+  Push i    2
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +13
+  Push c8   5
+  Push c8   6
+  GetProperty  (len=0)
+  Jump      +8
+  Push c8   5
+  Push c8   7
+  GetProperty  (len=0)
+  End

@@ -1,0 +1,280 @@
+  ConstantPool x94: JZG_haogan | LX_haogan | tzxy | WLRW | waichu | xxbb | yh | cs
+  Push c8   0
+  Push i    60
+  GetProperty  (len=0)
+  Push c8   1
+  Push i    70
+  GetProperty  (len=0)
+  Push c8   2
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   3
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   4
+  StringAdd  (len=0)
+  Push d    0.0
+  BitLShift  (len=0)
+  Pop  (len=0)
+  Push c8   5
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   6
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   7
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   8
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   9
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   10
+  Push i    1
+  GetProperty  (len=0)
+  Push c8   11
+  Push i    1
+  GetProperty  (len=0)
+  Push c8   12
+  Push i    5
+  GetProperty  (len=0)
+  Push c8   13
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   14
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   15
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   16
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   17
+  Push i    3
+  GetProperty  (len=0)
+  Push c8   18
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   19
+  Push i    15
+  GetProperty  (len=0)
+  Push c8   20
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   21
+  Push i    100
+  GetProperty  (len=0)
+  Push c8   22
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   23
+  Push i    30
+  GetProperty  (len=0)
+  Push c8   24
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   25
+  Push i    250
+  GetProperty  (len=0)
+  Push c8   26
+  Push i    80
+  GetProperty  (len=0)
+  Push c8   27
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   28
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   29
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   30
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   31
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   32
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   33
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   14
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   34
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   35
+  Push c8   36
+  GetProperty  (len=0)
+  Push c8   37
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   38
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   39
+  Push i    85
+  GetProperty  (len=0)
+  Push c8   40
+  Push i    6000
+  GetProperty  (len=0)
+  Push c8   41
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   42
+  Push i    1000
+  GetProperty  (len=0)
+  Push c8   43
+  Push c8   42
+  StringAdd  (len=0)
+  Push c8   44
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   45
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   46
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   47
+  Push i    1
+  GetProperty  (len=0)
+  Push c8   48
+  Push c8   47
+  StringAdd  (len=0)
+  Push c8   49
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   50
+  Push i    100
+  GetProperty  (len=0)
+  Push c8   51
+  Push i    70
+  GetProperty  (len=0)
+  Push c8   52
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   53
+  Push c8   54
+  GetProperty  (len=0)
+  Push c8   55
+  Push i    3
+  GetProperty  (len=0)
+  Push c8   56
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   57
+  Push i    10
+  GetProperty  (len=0)
+  Push c8   58
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   59
+  Push i    100
+  GetProperty  (len=0)
+  Push c8   60
+  Push i    200
+  GetProperty  (len=0)
+  Push c8   58
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   61
+  Push c8   62
+  GetProperty  (len=0)
+  Push c8   63
+  Push i    15
+  GetProperty  (len=0)
+  Push c8   64
+  Push i    20
+  GetProperty  (len=0)
+  Push c8   65
+  Push i    20
+  GetProperty  (len=0)
+  Push c8   66
+  Push i    50
+  GetProperty  (len=0)
+  Push c8   58
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   67
+  Push c8   68
+  GetProperty  (len=0)
+  Push c8   69
+  Push i    50
+  GetProperty  (len=0)
+  Push c8   70
+  Push i    30
+  GetProperty  (len=0)
+  Push c8   71
+  Push i    20
+  GetProperty  (len=0)
+  Push c8   72
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   73
+  Push c8   74
+  GetProperty  (len=0)
+  Push c8   75
+  Push i    10
+  GetProperty  (len=0)
+  Push c8   76
+  Push i    40
+  GetProperty  (len=0)
+  Push c8   77
+  Push i    10
+  GetProperty  (len=0)
+  Push c8   72
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   78
+  Push c8   79
+  GetProperty  (len=0)
+  Push c8   80
+  Push i    20
+  GetProperty  (len=0)
+  Push c8   81
+  Push i    40
+  GetProperty  (len=0)
+  Push c8   82
+  Push i    20
+  GetProperty  (len=0)
+  Push c8   58
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   83
+  Push c8   84
+  GetProperty  (len=0)
+  Push c8   85
+  Push i    100
+  GetProperty  (len=0)
+  Push c8   86
+  Push i    100
+  GetProperty  (len=0)
+  Push c8   87
+  Push i    30
+  GetProperty  (len=0)
+  Push c8   72
+  StringAdd  (len=0)
+  Pop  (len=0)
+  Push c8   88
+  Push c8   89
+  GetProperty  (len=0)
+  Push c8   90
+  Push i    20
+  GetProperty  (len=0)
+  Push c8   91
+  Push i    50
+  GetProperty  (len=0)
+  Push c8   92
+  Push d    0.0
+  GetProperty  (len=0)
+  Push c8   93
+  Push d    0.0
+  GetProperty  (len=0)
+  End

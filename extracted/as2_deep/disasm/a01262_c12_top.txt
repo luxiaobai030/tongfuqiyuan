@@ -1,0 +1,23 @@
+  ConstantPool x3: QCTZ | hp | ZG_JL
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +42
+  Push c8   1
+  Push c8   1
+  StringAdd  (len=0)
+  Push i    30
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    10
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Stop  (len=0)
+  Jump      +1
+  Stop  (len=0)
+  End

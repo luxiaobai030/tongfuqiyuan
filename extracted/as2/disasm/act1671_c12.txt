@@ -1,0 +1,101 @@
+  ConstantPool x17: zhengjie | XG_haogan | fuwu | LB_haogan | yinshi | DZ_chuyi | zhian | WS_haogan
+  Push c8   0
+  Push c8   1
+  StringAdd  (len=0)
+  Push i    2
+  Multiply  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    2
+  Multiply  (len=0)
+  GetProperty  (len=0)
+  Push c8   4
+  Push c8   5
+  StringAdd  (len=0)
+  Push i    2
+  Multiply  (len=0)
+  GetProperty  (len=0)
+  Push c8   6
+  Push c8   7
+  StringAdd  (len=0)
+  Push i    2
+  Multiply  (len=0)
+  GetProperty  (len=0)
+  Push c8   8
+  Push c8   9
+  StringAdd  (len=0)
+  GetProperty  (len=0)
+  Stop  (len=0)
+  Push i    800
+  Push c8   6
+  StringAdd  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   4
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  OP67  (len=0)
+  Push i    400
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +13
+  Push c8   10
+  Push c8   11
+  GetProperty  (len=0)
+  Jump      +134
+  Push i    1000
+  Push c8   6
+  StringAdd  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   4
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  OP67  (len=0)
+  Push i    800
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +13
+  Push c8   10
+  Push c8   12
+  GetProperty  (len=0)
+  Jump      +72
+  Push c8   6
+  StringAdd  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   2
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push c8   4
+  StringAdd  (len=0)
+  BitOr  (len=0)
+  Push i    1000
+  BitXor  (len=0)
+  Not  (len=0)
+  Not  (len=0)
+  If        +21
+  Push c8   10
+  Push c8   13
+  GetProperty  (len=0)
+  Push c8   14
+  Push c8   15
+  GetProperty  (len=0)
+  Jump      +8
+  Push c8   10
+  Push c8   16
+  GetProperty  (len=0)
+  End

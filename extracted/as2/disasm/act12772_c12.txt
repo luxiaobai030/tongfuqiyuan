@@ -1,0 +1,43 @@
+  ConstantPool x8: hp | hp_linshi | xiuwei | ZG_JL | WLT | money | money_tishi | 文
+  Stop  (len=0)
+  Push c8   0
+  Push c8   1
+  StringAdd  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    3
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   2
+  Push c8   2
+  StringAdd  (len=0)
+  Push i    5
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   3
+  Push c8   3
+  StringAdd  (len=0)
+  Push i    10
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   4
+  Push c8   4
+  StringAdd  (len=0)
+  Push i    1
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   5
+  Push c8   5
+  StringAdd  (len=0)
+  Push i    50
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  Push c8   6
+  Push c8   5
+  StringAdd  (len=0)
+  Push c8   7
+  BitOr  (len=0)
+  GetProperty  (len=0)
+  End

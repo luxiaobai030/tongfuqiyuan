@@ -1,0 +1,17 @@
+  Stop  (len=0)
+  StopSounds  (len=0)
+  Push str  'GN'
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 362
+  Play  (len=0)
+  Jump      +28
+  GotoFrame 3967
+  Play  (len=0)
+  Push str  'shengli'
+  Push d    0.0
+  GetProperty  (len=0)
+  End

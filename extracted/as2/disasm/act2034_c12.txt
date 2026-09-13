@@ -1,0 +1,54 @@
+  ConstantPool x1: yuehui
+  Push c8   0
+  Push i    10
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    5
+  BitLShift  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    8
+  BitLShift  (len=0)
+  Or  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    2
+  BitLShift  (len=0)
+  Or  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 292
+  Play  (len=0)
+  Jump      +102
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    3
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 284
+  Play  (len=0)
+  Jump      +70
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    4
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 285
+  Play  (len=0)
+  Jump      +38
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    9
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 286
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 288
+  Play  (len=0)
+  End

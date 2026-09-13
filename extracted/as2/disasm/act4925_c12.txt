@@ -1,0 +1,170 @@
+  ConstantPool x1: qa
+  Push c8   0
+  Push i    19
+  NewObject  (len=0)
+  GetProperty  (len=0)
+  Push c8   0
+  StringAdd  (len=0)
+  Push d    0.0
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 871
+  Play  (len=0)
+  Jump      +550
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    1
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 872
+  Play  (len=0)
+  Jump      +518
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    2
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 873
+  Play  (len=0)
+  Jump      +486
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    3
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 874
+  Play  (len=0)
+  Jump      +454
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    4
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 875
+  Play  (len=0)
+  Jump      +422
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    5
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 876
+  Play  (len=0)
+  Jump      +390
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    6
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 877
+  Play  (len=0)
+  Jump      +358
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    7
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 878
+  Play  (len=0)
+  Jump      +326
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    8
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 879
+  Play  (len=0)
+  Jump      +294
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    9
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 880
+  Play  (len=0)
+  Jump      +262
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    10
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 881
+  Play  (len=0)
+  Jump      +230
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    11
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 882
+  Play  (len=0)
+  Jump      +198
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    12
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 883
+  Play  (len=0)
+  Jump      +166
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    13
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 884
+  Play  (len=0)
+  Jump      +134
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    14
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 885
+  Play  (len=0)
+  Jump      +102
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    15
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 886
+  Play  (len=0)
+  Jump      +70
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    16
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 887
+  Play  (len=0)
+  Jump      +38
+  Push c8   0
+  StringAdd  (len=0)
+  Push i    17
+  BitLShift  (len=0)
+  Not  (len=0)
+  If        +11
+  GotoFrame 888
+  Play  (len=0)
+  Jump      +6
+  GotoFrame 889
+  Play  (len=0)
+  End
