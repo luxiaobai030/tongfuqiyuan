@@ -56,8 +56,21 @@ jobs:
             } >> $GITHUB_STEP_SUMMARY
             exit $code
           fi
-          mv build/game.exe "build/同福奇缘.exe"
+          # 中文文件名会被 GitHub 改成 default.exe，所以资产用拼音名
+          mv build/game.exe build/tongfuqiyuan.exe
           ls -lh build/
+
+      - name: 清掉这个 release 里多余的旧资产
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          tag="${{ github.ref_type == 'tag' && github.ref_name || 'v1.0' }}"
+          for a in $(gh release view "$tag" --json assets --jq '.assets[].name' 2>/dev/null || true); do
+            if [ "$a" != "tongfuqiyuan.exe" ]; then
+              echo "删掉旧资产 $a"
+              gh release delete-asset "$tag" "$a" -y || true
+            fi
+          done
 
       - name: 发到 Releases
         uses: softprops/action-gh-release@v2
@@ -65,14 +78,16 @@ jobs:
           tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'v1.0' }}
           name: 同福奇缘 · Godot 移植版 ${{ github.ref_type == 'tag' && github.ref_name || 'v1.0' }}
           body: |
-            ### 直接下下面那个 同福奇缘.exe，双击就能玩
+            ### 直接下下面那个 tongfuqiyuan.exe，双击就能玩
 
             不用装 Godot，不用解压，单文件 300MB。
+            它就是《同福奇缘》，文件名用拼音是因为 GitHub 会把中文名改成 default.exe。
 
             - 画面 / 剧情 / 数值全部来自原版 Flash，逐帧一致
             - 额外加了：存档 / 读档（F5 / F9）、隐藏道具图鉴（右上角开关或 Tab，没拿到的显示 ？？？）
             - 操作：剧情继续 = 空格；战斗先机 / 后发 = A / D；技能 = Z X C V B N；逃跑 = Q
+            - v1.1 修了战斗选项（先机 / 后发、技能菜单）鼠标移上去时白块糊住文字的问题
 
             源码（含原版 SWF）在仓库里。
-          files: build/同福奇缘.exe
+          files: build/tongfuqiyuan.exe
           fail_on_unmatched_files: true

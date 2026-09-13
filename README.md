@@ -3,7 +3,7 @@
 Flash 小游戏《同福奇缘》（武林外传 · 同福客栈模拟经营）的 Godot 4.7 移植版。
 画面、剧情、数值全部取自原版 SWF，没有重画素材。
 
-想直接玩：从 Releases 里下 `同福奇缘.exe`，双击即玩，不用装 Godot。
+想直接玩：从 Releases 里下 `tongfuqiyuan.exe`（文件名是拼音，GitHub 会把中文名改成 default.exe），双击即玩，不用装 Godot。
 
 ## 怎么玩
 
