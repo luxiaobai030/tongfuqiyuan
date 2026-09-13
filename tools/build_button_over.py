@@ -38,6 +38,26 @@ def abbox(a):
     return [int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1]
 
 
+def _lighten_only(A, C, ub):
+    """over 在自己的方框里是不是「只把 up 提亮」，没有新画上去的字或图标。
+
+    这种 over 就是本按钮美术的提亮版：原版里它画在文字框**下面**，文字照样看得见；
+    移植版的文字是烧在整幅底图里的，直接叠上去就把字糊掉了（战斗的「先机/后发」、
+    技能菜单都会这样），所以这种 over 只保留方框外的那点（选中的箭头指示）。
+    """
+    a_op, c_op = A[..., 3] > 8, C[..., 3] > 8
+    R = np.zeros(a_op.shape, dtype=bool)
+    R[ub[1]:ub[3], ub[0]:ub[2]] = True
+    both = R & a_op & c_op
+    if int(both.sum()) < 16:
+        return False
+    if int((R & c_op & ~a_op).sum()) > 0.02 * int(R.sum()):
+        return False
+    d = (0.299 * C[..., 0] + 0.587 * C[..., 1] + 0.114 * C[..., 2]) - \
+        (0.299 * A[..., 0] + 0.587 * A[..., 1] + 0.114 * A[..., 2])
+    return float((d[both] < -12).mean()) < 0.02
+
+
 # ---------------------------------------------------------------- 1. 按钮悬停态
 def build_buttons():
     os.makedirs(OV, exist_ok=True)
@@ -67,7 +87,13 @@ def build_buttons():
             continue
         rgba = np.zeros((C.shape[0], C.shape[1], 4), dtype=np.uint8)
         rgba[mask] = C[mask].astype(np.uint8)
+        if _lighten_only(A, C, ub):
+            rgba[ub[1]:ub[3], ub[0]:ub[2]] = 0
+            if not (rgba[..., 3] > 0).any():
+                continue
         bb = abbox(rgba)
+        if bb is None:
+            continue
         ox, oy = bb[0], bb[1]
         crop = rgba[bb[1]:bb[3], bb[0]:bb[2]]
         q = os.path.join(OV, "%d.webp" % bid)

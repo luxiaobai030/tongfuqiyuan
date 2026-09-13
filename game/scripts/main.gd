@@ -363,7 +363,7 @@ func _items_for(n: int, b: int) -> Array:
 
 func _make_button(id: int, box: Array) -> Control:
 	var btn := Button.new()
-	btn.flat = true
+	btn.flat = false
 	btn.focus_mode = Control.FOCUS_NONE
 	btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	btn.position = Vector2(float(box[0]), float(box[1]))

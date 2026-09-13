@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p build
           set +e
-          ./Godot_v4.7-stable_linux.x86_64 --headless --path game --export-release "Windows Desktop" build/game.exe > export.log 2>&1
+          ./Godot_v4.7-stable_linux.x86_64 --headless --path game --export-release "Windows Desktop" ../build/game.exe > export.log 2>&1
           code=$?
           echo "===== 导出退出码 $code ====="
           tail -60 export.log
@@ -54,13 +54,6 @@ jobs:
               ls -la ~/.local/share/godot/export_templates/ 2>&1 || true
               ls -la ~/.local/share/godot/export_templates/*/ 2>&1 | head -20 || true
             } >> $GITHUB_STEP_SUMMARY
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            cp export.log ci-export.log
-            git checkout -b ci-log 2>/dev/null || git checkout -B ci-log
-            git add -f ci-export.log
-            git commit -q -m "导出失败时的日志"
-            git push -f origin ci-log
             exit $code
           fi
           mv build/game.exe "build/同福奇缘.exe"
