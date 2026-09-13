@@ -1,0 +1,55 @@
+name: 打包并发布 exe
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 下载 Godot 4.7 和导出模板
+        run: |
+          set -e
+          wget -q https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
+          unzip -q Godot_v4.7-stable_linux.x86_64.zip
+          chmod +x Godot_v4.7-stable_linux.x86_64
+          wget -q https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz -O templates.tpz
+          unzip -q templates.tpz
+          mv templates 4.7.stable
+          mkdir -p ~/.local/share/godot/export_templates
+          mv 4.7.stable ~/.local/share/godot/export_templates/
+
+      - name: 导入游戏资源
+        run: ./Godot_v4.7-stable_linux.x86_64 --headless --path game --import
+
+      - name: 导出单文件 exe
+        run: |
+          mkdir -p build
+          ./Godot_v4.7-stable_linux.x86_64 --headless --path game --export-release "Windows Desktop" "build/同福奇缘.exe"
+          ls -lh build
+
+      - name: 发到 Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_type == 'tag' && github.ref_name || 'v1.0' }}
+          name: 同福奇缘 · Godot 移植版 ${{ github.ref_type == 'tag' && github.ref_name || 'v1.0' }}
+          body: |
+            ### 直接下下面那个 同福奇缘.exe，双击就能玩
+
+            不用装 Godot，不用解压，单文件 300MB。
+
+            - 画面 / 剧情 / 数值全部来自原版 Flash，逐帧一致
+            - 额外加了：存档 / 读档（F5 / F9）、隐藏道具图鉴（右上角开关或 Tab，没拿到的显示 ？？？）
+            - 操作：剧情继续 = 空格；战斗先机 / 后发 = A / D；技能 = Z X C V B N；逃跑 = Q
+
+            源码（含原版 SWF）在仓库里。
+          files: build/同福奇缘.exe
+          fail_on_unmatched_files: true
