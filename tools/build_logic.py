@@ -39,6 +39,18 @@ for d in sorted(os.listdir(S)):
                     code = convert(src)
                     buttons[bid]["release"] = (prev + code) if prev else code
 
+## 用户要求：战斗胜利的奖励翻倍。
+## 第 2545 帧是战斗胜利的结算（原版：生命 +3 / 修为 +5 / 技力 +10 / 威望 +1 / 铜钱 +50）。
+REWARD_X2 = [("hp", 3), ("xiuwei", 5), ("ZG_JL", 10), ("WLT", 1), ("money", 50)]
+if 2545 in frames:
+    code = frames[2545]
+    for var, base in REWARD_X2:
+        old = '\tsetv("%s", _add(V("%s"), %d))\n' % (var, var, base)
+        new = '\tsetv("%s", _add(V("%s"), %d))\n' % (var, var, base * 2)
+        assert old in code, "第 2545 帧的奖励语句和预期不一样：" + old
+        code = code.replace(old, new)
+    frames[2545] = code
+
 def fname(prefix, n): return "_%s%s" % (prefix, n)
 
 buf = io.StringIO()

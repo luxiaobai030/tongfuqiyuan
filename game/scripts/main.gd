@@ -33,11 +33,20 @@ const FONT_FALLBACK := {180: 15, 1072: 171}
 const DEVICE_FONTS := {180: ["Arial"], 1072: ["黑体", "SimHei", "Microsoft YaHei"]}
 const ALIGN_MAP := {0: HORIZONTAL_ALIGNMENT_LEFT, 1: HORIZONTAL_ALIGNMENT_RIGHT, 2: HORIZONTAL_ALIGNMENT_CENTER}
 
+## 伤害飘字（原版没有）：战斗里敌我掉血 / 回血时，在对应人物身上飘一个数字
+const DAMAGE_SPOTS := {
+	## 敌人只报掉血：战斗结束把它的血存回去（diren_hplinshi）不是战斗事件，不该飘
+	"diren_HP": {"at": Vector2(130, 235), "color": Color(1.0, 0.93, 0.42), "dmg_only": true},
+	"hp": {"at": Vector2(690, 225), "color": Color(1.0, 0.45, 0.36)},
+}
+const HEAL_COLOR := Color(0.5, 0.98, 0.5)
+
 @onready var bg_rect: TextureRect = $BG
 @onready var clip_view: Control = $ClipView
 @onready var label_root: Control = $Labels
 @onready var btn_root: Control = $Buttons
 @onready var over_rect: TextureRect = $Over
+@onready var float_root: Control = $Floats
 @onready var tools: Control = $Tools
 
 var logic: RefCounted
@@ -82,6 +91,10 @@ var _sfx: Array[AudioStreamPlayer] = []
 var _sfx_next: int = 0
 var _hover_id: int = -1
 var _over_tex: Dictionary = {}
+var _damage_font: Font
+var _hp_prev: Dictionary = {}        # 变量名 → 上一次看到的值
+var _hp_seen: Dictionary = {}        # 变量名 → 上一帧在不在场上（不在场就不算掉血）
+var _float_seq: int = 0
 
 func _ready() -> void:
 	randomize()
@@ -104,6 +117,9 @@ func _ready() -> void:
 	for v in _load_json("res://data/beats.json", []):
 		beats.append(int(v))
 	_load_fonts()
+	_damage_font = _system_font(["黑体", "SimHei", "Microsoft YaHei"])
+	if _damage_font == null:
+		_damage_font = panel_font
 	_setup_audio()
 	logic = load("res://scripts/ported/logic.gd").new()
 	logic.vars = GameState.vars
@@ -193,6 +209,7 @@ func _process(delta: float) -> void:
 		_tick()
 	if dirty:
 		_render()
+	_watch_hp()
 	if _clip_dirty:
 		_clip_dirty = false
 		clip_view.queue_redraw()
@@ -429,6 +446,63 @@ func _refresh_labels() -> void:
 	for c in label_root.get_children():
 		if c.has_meta("varname"):
 			(c as Label).text = _val_text(str(c.get_meta("varname")))
+
+# ---------------------------------------------------------------- 伤害飘字
+
+func _watch_hp() -> void:
+	## 只在战斗里飘：画面上有「敌人生命」这一栏才算在打
+	if not _has_item_var("diren_HP"):
+		_hp_seen.clear()
+		return
+	for name in DAMAGE_SPOTS:
+		var raw = logic.V(name)
+		var v := float(raw) if (raw is int or raw is float) else 0.0
+		var was := bool(_hp_seen.get(name, false))
+		var prev = _hp_prev.get(name)
+		_hp_seen[name] = true
+		_hp_prev[name] = v
+		if not was or prev == null:
+			continue
+		var diff := int(round(v - float(prev)))
+		if diff == 0:
+			continue
+		var cfg: Dictionary = DAMAGE_SPOTS[name]
+		if diff > 0 and bool(cfg.get("dmg_only", false)):
+			continue
+		_spawn_damage(name, diff)
+
+func _has_item_var(varname: String) -> bool:
+	for it in _items:
+		if str(it.get("var", "")) == varname:
+			return true
+	return false
+
+func _spawn_damage(spot: String, d: int) -> void:
+	var cfg: Dictionary = DAMAGE_SPOTS[spot]
+	var col: Color = HEAL_COLOR if d > 0 else cfg.color
+	var lbl := Label.new()
+	lbl.text = ("+%d" % d) if d > 0 else str(d)
+	lbl.add_theme_font_override("font", _damage_font)
+	lbl.add_theme_font_size_override("font_size", 30)
+	lbl.add_theme_color_override("font_color", col)
+	lbl.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.02, 0.9))
+	lbl.add_theme_constant_override("outline_size", 8)
+	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	lbl.size = Vector2(150, 44)
+	lbl.pivot_offset = lbl.size * 0.5
+	lbl.scale = Vector2(1.35, 1.35)
+	_float_seq += 1
+	## 连着挨打的时候错开一点，不然几个数字会叠在一起
+	var jitter := float((_float_seq * 29) % 46 - 23)
+	lbl.position = Vector2(cfg.at) + Vector2(jitter - 75.0, -22.0)
+	float_root.add_child(lbl)
+	var tw := lbl.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(lbl, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tw.tween_property(lbl, "position:y", lbl.position.y - 50.0, 0.85).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(lbl, "modulate:a", 0.0, 0.45).set_delay(0.4)
+	tw.chain().tween_callback(lbl.queue_free)
 
 # ---------------------------------------------------------------- 交互
 

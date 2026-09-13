@@ -5355,11 +5355,11 @@ func _f2544() -> void:
 func _f2545() -> void:
 	halt_mm()
 	setv("hp", V("hp_linshi"))
-	setv("hp", _add(V("hp"), 3))
-	setv("xiuwei", _add(V("xiuwei"), 5))
-	setv("ZG_JL", _add(V("ZG_JL"), 10))
-	setv("WLT", _add(V("WLT"), 1))
-	setv("money", _add(V("money"), 50))
+	setv("hp", _add(V("hp"), 6))
+	setv("xiuwei", _add(V("xiuwei"), 10))
+	setv("ZG_JL", _add(V("ZG_JL"), 20))
+	setv("WLT", _add(V("WLT"), 2))
+	setv("money", _add(V("money"), 100))
 	setv("money_tishi", _add(V("money"), "文"))
 
 func _f2559() -> void:
