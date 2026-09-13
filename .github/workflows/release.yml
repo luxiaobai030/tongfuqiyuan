@@ -23,9 +23,13 @@ jobs:
           chmod +x Godot_v4.7-stable_linux.x86_64
           wget -q https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz -O templates.tpz
           unzip -q templates.tpz
+          ls -la templates | head -5
+          cat templates/version.txt
           mv templates 4.7.stable
           mkdir -p ~/.local/share/godot/export_templates
           mv 4.7.stable ~/.local/share/godot/export_templates/
+          echo "== 装好的模板 =="
+          ls -la ~/.local/share/godot/export_templates/4.7.stable/ | head -12
 
       - name: 导入游戏资源
         run: ./Godot_v4.7-stable_linux.x86_64 --headless --path game --import
@@ -33,8 +37,34 @@ jobs:
       - name: 导出单文件 exe
         run: |
           mkdir -p build
-          ./Godot_v4.7-stable_linux.x86_64 --headless --path game --export-release "Windows Desktop" "build/同福奇缘.exe"
-          ls -lh build
+          set +e
+          ./Godot_v4.7-stable_linux.x86_64 --headless --path game --export-release "Windows Desktop" build/game.exe > export.log 2>&1
+          code=$?
+          echo "===== 导出退出码 $code ====="
+          tail -60 export.log
+          if [ $code -ne 0 ]; then
+            {
+              echo "## 导出退出码: $code"
+              echo '```'
+              tail -120 export.log
+              echo '```'
+              echo "HOME=$HOME"
+              echo "XDG_DATA_HOME=$XDG_DATA_HOME"
+              ls -la ~/.local/share/godot/ 2>&1 || true
+              ls -la ~/.local/share/godot/export_templates/ 2>&1 || true
+              ls -la ~/.local/share/godot/export_templates/*/ 2>&1 | head -20 || true
+            } >> $GITHUB_STEP_SUMMARY
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            cp export.log ci-export.log
+            git checkout -b ci-log 2>/dev/null || git checkout -B ci-log
+            git add -f ci-export.log
+            git commit -q -m "导出失败时的日志"
+            git push -f origin ci-log
+            exit $code
+          fi
+          mv build/game.exe "build/同福奇缘.exe"
+          ls -lh build/
 
       - name: 发到 Releases
         uses: softprops/action-gh-release@v2
