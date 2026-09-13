@@ -1,5 +1,0 @@
-  Stop  (len=0)
-  Push str  'taobao'
-  Push str  '淘宝商人：真可惜，就差一点就淘到了，要不再试试？'
-  GetProperty  (len=0)
-  End

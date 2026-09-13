@@ -1,12 +1,17 @@
 # —— Godot 导入缓存：Godot 打开工程时会自己重建，不用进仓库 ——
 game/.godot/
 
-# —— 导出的 exe：单个就有 300MB，要用的时候自己从 Godot 里导出（README 有命令） ——
+# —— 导出的 exe：单个就有 300MB，发在 Releases 里，不进仓库 ——
 导出/
 
-# —— 反编译中间产物：能从 原版/*.swf 用 tools/ 里的脚本重新生成，加起来 3GB ——
+# —— 反编译 / 解包中间产物：能从 原版/*.swf 用 tools/ 里的脚本重新生成 ——
 decompiled/
+extracted/
 body_uncompressed.bin
+
+# —— 开发时的截图、旧脚手架 ——
+截图预览/
+_旧脚手架/
 
 # —— Python 缓存 ——
 __pycache__/

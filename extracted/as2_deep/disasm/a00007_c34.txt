@@ -1,2 +1,0 @@
-  CloneSprite  (len=0)
-  End
