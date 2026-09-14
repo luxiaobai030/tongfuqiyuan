@@ -13,6 +13,9 @@ body_uncompressed.bin
 截图预览/
 _旧脚手架/
 
+# —— 跑探针时临时挪出来的存档（tools/run_probe.py 用，跑完会放回去）——
+_probe_saves/
+
 # —— Python 缓存 ——
 __pycache__/
 *.pyc

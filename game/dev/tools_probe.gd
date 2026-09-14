@@ -1,5 +1,7 @@
 extends Node
-## 道具面板 + 存档 / 读档 自检（开发用，不参与正式游戏）
+## 菜单 + 道具框 + 存档 / 读档 自检（开发用，不参与正式游戏）
+## 用法：Godot.exe --path game res://dev/tools_probe.tscn
+## 会真的存读档，所以跑之前把玩家的存档挪开（见 dev/README 那段命令），别直接跑。
 var main: Control
 var d := "res://../截图预览/存档道具"
 var _mouse_pos := Vector2.ZERO
@@ -21,7 +23,7 @@ func _ready() -> void:
 	main._render()
 	await _wait(0.5)
 	await _shot("a1b_开关_跳过情节那一帧")
-	print("[道具] 开关文字=%s 位置=%s" % [main.tools._toggle.text, str(main.tools._toggle.get_global_rect())])
+	print("[道具] 菜单按钮文字=%s 位置=%s" % [main.tools._toggle_btn.text, str(main.tools._toggle_btn.get_global_rect())])
 
 	# 2. 打开面板
 	main.tools.open_panel()
@@ -57,22 +59,22 @@ func _ready() -> void:
 	main.tools.on_frame(968)
 	print("[道具] TBWP=15 时应拿到玉如意：%s" % str(GameState.has_item("tb_14")))
 
-	# 5. 存档 / 读档
+	# 5. 存档 / 读档（存到档位三，玩家的档位一不碰）
 	main.logic.setv("money", 43210)
 	main.logic.setv("day", 9)
 	main.tools.close_panel()
 	await _wait(0.2)
-	var m1: String = main.do_save()
+	var m1: String = main.do_save(3)
 	print("[存档] %s" % m1)
 	main.logic.setv("money", 1)
 	main.logic.setv("day", 1)
-	var m2: String = main.do_load()
+	var m2: String = main.do_load(3)
 	print("[存档] %s → money=%s（期望 43210） day=%s（期望 9） 帧=%d 道具=%d 件" % [
 		m2, str(main.logic.V("money")), str(main.logic.V("day")), main.cur, GameState.item_count()])
 	await _wait(0.4)
 	await _shot("a4_读档后")
 
-	# 6. 面板开着时按键不传给游戏；Tab 能开关面板
+	# 6. 面板开着时按键不传给游戏；Tab 关掉它、再按开的是菜单
 	main._goto(2160)
 	main._drain()
 	main._render()
@@ -86,31 +88,31 @@ func _ready() -> void:
 	await _shot("a5_战斗里开着面板")
 	_key(KEY_TAB)
 	await _wait(0.3)
-	print("[按键] 按 Tab 后面板=%s（应 false）" % str(main.tools.panel_open))
+	print("[按键] 按 Tab 后 界面还开着=%s（应 false）" % str(main.tools.ui_open()))
 	_key(KEY_TAB)
 	await _wait(0.3)
-	print("[按键] 再按 Tab 面板=%s（应 true）" % str(main.tools.panel_open))
-	main.tools.close_panel()
+	print("[按键] 再按 Tab：菜单=%s（应 menu） 道具框=%s（应 false）" % [main.tools._modal, str(main.tools.panel_open)])
+	main.tools.close_menu()
 	await _wait(0.3)
 	await _shot("a6_战斗里关掉面板")
 
-	# 7. 开关本身点得到吗（模拟鼠标点右上角）
-	var r: Rect2 = main.tools._toggle.get_global_rect()
+	# 7. 右上角那块木牌点得到吗（模拟鼠标点它）
+	var r: Rect2 = main.tools._toggle_btn.get_global_rect()
 	await _move(r.position + r.size * 0.5)
 	await _wait(0.2)
 	await _click()
 	await _wait(0.3)
-	print("[鼠标] 点右上角开关后面板=%s（应 true）" % str(main.tools.panel_open))
+	print("[鼠标] 点右上角菜单后=%s（应 menu）" % main.tools._modal)
 	await _move(Vector2(760, 560))
 	await _wait(0.2)
 	await _click()
 	await _wait(0.3)
-	print("[鼠标] 点黑幕后面板=%s（应 false） 帧=%d" % [str(main.tools.panel_open), main.cur])
+	print("[鼠标] 点黑幕后 界面=%s（应空） 帧=%d" % [main.tools._modal, main.cur])
 	await _shot("a7_点黑幕关掉")
-	# 8. 关着面板按 F5：提示应该顶在右上角开关上
+	# 8. 关着界面按 F5：上方应该弹一条提示
 	_key(KEY_F5)
 	await _wait(0.4)
-	print("[提示] F5 后开关文字=%s" % main.tools._toggle.text)
+	print("[提示] F5 后提示条=%s（应「已存档 · 档位一 …」）" % main.tools._toast_label.text)
 	await _shot("a8_角落里按F5的提示")
 	# 9. 真走一遍游戏里的淘宝流程（帧 956 那个「淘一次」按钮），看道具会不会被记下来
 	main.logic.setv("money", 999999)
@@ -137,11 +139,20 @@ func _ready() -> void:
 	main.tools.open_panel()
 	await _wait(0.4)
 	await _shot("a9_淘宝淘到之后")
-	# 10. 面板开着的时候存档：提示应该走在面板的状态行上（那行的字体和正文一致）
-	main.tools._do_save()
+	# 10. 打开存档框，往档位三存一次，提示条上应该写出档位
+	main.tools.open_slots("save")
 	await _wait(0.4)
-	print("[提示] 面板开着时状态行=%s" % main.tools._status.text)
-	await _shot("a10_面板上的存档提示")
+	main.tools.dlg._on_slot(3)
+	await _wait(0.5)
+	print("[存档] 存档框里第一次点档位三：%s（存过的话这里应该变「再点一下重写」）"
+		% main.tools.dlg._rows[2].text)
+	main.tools.dlg._on_slot(3)
+	await _wait(0.5)
+	print("[提示] 再点一次之后提示条：%s" % main.tools._toast_label.text)
+	await _shot("a10_存档框")
+	main.do_load(3)
+	await _wait(0.4)
+	print("[存档] 读档三之后 帧=%d 道具=%d 件 money=%s" % [main.cur, GameState.item_count(), str(main.logic.V("money"))])
 	get_tree().quit()
 
 func _owned() -> Array:

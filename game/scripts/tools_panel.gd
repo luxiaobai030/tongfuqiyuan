@@ -1,58 +1,63 @@
 extends Control
-## 工具箱（移植版额外加的，原版没有）：存档 / 读档 + 隐藏道具图鉴
+## 右上角的菜单 + 移植版额外加的几块界面（原版都没有）。
 ##
-## 右上角常驻一个小开关，上面写着已收集的进度；点它或按 Tab 弹出面板。
-## 面板里列出全部隐藏道具：拿到过的显示名字和效果，没拿到的显示 ？？？。
-## 面板打开时用一层半透明黑幕挡住下面的游戏画面 —— 底下的按钮点不到，
-## 游戏按键（z x c v b n 等）也不再生效，免得看道具的时候把战斗指令发出去。
+## 右上角常驻一块小木牌「菜单」，点开是四项：存档 / 读档 / 隐藏道具 / 关闭。
+##   * 存档、读档 —— 三个档位随便挑，见 scripts/save_dialog.gd
+##   * 隐藏道具   —— 十九件隐藏道具的图鉴，没拿到的显示 ？？？，见 hidden_items.json
+##
+## 位置是挑过的：只占最上面那条 20px，正好落在剧情帧「跳过情节」按钮上边那条空白里，
+## 不挡它。菜单弹出来的是一竖排木牌，和标题页那几块一模一样。
+##
+## 长相一律照抄原版自己的界面（米黄底 + 深棕外框 + 朱红隶书字），见 scripts/ui_skin.gd。
 ##
 ## 道具从来不看「玩家有没有见过」，只看游戏自己的判定点：
 ## 帧 297 / 830 / 1317 各送一件倾城装，按钮 1288 是收下羞花衫，
 ## 帧 968（淘宝成功）按 TBWP 随机数决定淘到哪件珍品。
 
-const PANEL_POS := Vector2(70, 64)
-const PANEL_SIZE := Vector2(660, 470)
 ## 右上角：贴在最上沿，正好躲开剧情帧的「跳过情节」按钮（它在 y=22.8 往下）
-const TOGGLE_POS := Vector2(664, 1)
-const TOGGLE_SIZE := Vector2(132, 19)
-const CELL_W := 310.0
-const NAME_W := 150.0
+const MENU_POS := Vector2(664, 1)
+const MENU_SIZE := Vector2(132, 20)
+const MENU_DOWN := Vector2(664, 24)
+## 菜单项别矮于 40：木牌四角的云要 19px 边距才摆得下（见 ui_skin.gd）
+const MENU_ITEM := Vector2(132, 46)
+const MENU_GAP := 4.0
 
-const C_BG        := Color(0.10, 0.078, 0.055, 0.97)
-const C_BORDER    := Color(0.78, 0.64, 0.36)
-const C_TITLE     := Color(0.96, 0.86, 0.60)
-const C_TEXT      := Color(0.94, 0.90, 0.78)
-const C_FX        := Color(0.72, 0.66, 0.52)
-const C_DIM       := Color(0.55, 0.51, 0.44)
-const C_NOTE      := Color(0.58, 0.54, 0.46)
-const C_BTN       := Color(0.23, 0.18, 0.12, 1.0)
-const C_BTN_HOVER := Color(0.35, 0.27, 0.16, 1.0)
+const ITEMS_POS := Vector2(70, 64)
+const ITEMS_SIZE := Vector2(660, 470)
+const CELL_W := 304.0
+const NAME_W := 148.0
+
+## 提示条：横向摆在哪几个地方是量过的 —— 左边躲开战斗界面的敌人属性框（到 x=312），
+## 右边躲开「跳过情节」（从 x=663 起）
+const TOAST_POS := Vector2(330, 2)
+const TOAST_SIZE := Vector2(300, 26)
 
 var main: Node = null
-var panel_font: Font = null
-## 正文用的字体（游戏原来那个）：它不含拉丁字母，字母和「·」会走系统字体兜底，
-## 显示比隶书那套干净 —— 隶书里 a 的字形和「·」是坏的，看着像乱码。
-var ui_font: Font = null
+var plaque_font: Font = null      ## 木牌上的字（隶书，缺的字走系统兜底）
 
 var sets: Array = []
 var by_frame: Dictionary = {}      # 帧号 → [道具键, ...]
 var by_button: Dictionary = {}     # 按钮 id → [道具键, ...]
 var by_tbwp: Dictionary = {}       # 帧号 → [[随机数下限, 上限, 道具键], ...]
 
-var panel_open: bool = false
+var panel_open: bool = false       ## 隐藏道具框开着没有
+var dlg: SaveDialog = null         ## 存档 / 读档框
 
-var _toggle: Button
+var _modal := ""                   ## "" / "menu" / "items"
+var _menu: Control
+var _toggle_btn: Button
 var _backdrop: ColorRect
 var _box: PanelContainer
 var _progress: Label
-var _status: Label
+var _toast: PanelContainer
+var _toast_label: Label
+var _toast_left: float = 0.0
 var _cells: Dictionary = {}        # 道具键 → {n, f, name, fx}
-var _msg_left: float = 0.0
+var _menu_items: Button
 
 func setup(main_node: Node, font: Font, cfg: Dictionary) -> void:
 	main = main_node
-	panel_font = font
-	ui_font = main.get("default_font")
+	plaque_font = font
 	sets = cfg.get("sets", [])
 	_index()
 	_build()
@@ -120,51 +125,89 @@ func _tbwp() -> int:
 	var v = lg.V("TBWP")
 	return -1 if v == null else int(v)
 
-# ---------------------------------------------------------------- 开关与面板
+# ---------------------------------------------------------------- 开关
 
+## 菜单 / 道具框 / 存档框里有任何一个开着，游戏按键就不该再传下去
+func ui_open() -> bool:
+	return _modal != "" or (dlg != null and dlg.is_open)
+
+## Tab 键：开着就全关掉，没开就弹菜单
 func toggle_panel() -> void:
-	if panel_open:
+	if ui_open():
+		close_menu()
 		close_panel()
+		if dlg != null:
+			dlg.close()
 	else:
-		open_panel()
+		open_menu()
+
+func open_menu() -> void:
+	if _modal == "menu":
+		return
+	close_panel()
+	if dlg != null:
+		dlg.close()
+	_modal = "menu"
+	_backdrop.color = Color(0, 0, 0, 0.28)
+	_backdrop.visible = true
+	_menu.visible = true
+	refresh()
+
+func close_menu() -> void:
+	if _modal == "menu":
+		_modal = ""
+	_menu.visible = false
+	_backdrop.visible = panel_open
 
 func open_panel() -> void:
+	close_menu()
+	_modal = "items"
 	panel_open = true
-	_msg_left = 0.0
 	refresh()
+	_backdrop.color = Color(0, 0, 0, 0.55)
 	_backdrop.visible = true
 	_box.visible = true
+	_toggle_btn.visible = false
 
 func close_panel() -> void:
+	if _modal == "items":
+		_modal = ""
 	panel_open = false
-	_msg_left = 0.0
 	_backdrop.visible = false
 	_box.visible = false
+	_toggle_btn.visible = true
 	refresh()
 
-## 面板开着就显示在面板上，关着就顶在右上角开关上，几秒后自动消失
+## 存档 / 读档框（标题页的「读档」按钮和菜单里都走这里）
+func open_slots(which: String) -> void:
+	close_menu()
+	close_panel()
+	_toggle_btn.visible = false
+	dlg.open(which)
+
+func _on_dialog_closed() -> void:
+	_toggle_btn.visible = true
+
+## 提示条：屏幕上方弹一句，几秒后自己消失
 func flash(msg: String) -> void:
 	if msg == "":
 		return
-	if panel_open:
-		_status.text = msg
-		_msg_left = 4.0
-	else:
-		# 关着的时候提示就顶在右上角的开关上，那里窄，只留第一句（「已存档」这种）
-		_toggle.text = msg.split(" · ")[0]
-		_msg_left = 3.0
+	_toast_label.text = msg.split("\n")[0]
+	_toast.visible = true
+	_toast_left = 4.0
 
 func _process(delta: float) -> void:
-	if _msg_left > 0.0:
-		_msg_left -= delta
-		if _msg_left <= 0.0:
-			_msg_left = 0.0
-			refresh()
+	if _toast_left > 0.0:
+		_toast_left -= delta
+		if _toast_left <= 0.0:
+			_toast_left = 0.0
+			_toast.visible = false
 
 func _on_backdrop_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mb := event as InputEventMouseButton
 		if mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
+			close_menu()
 			close_panel()
 
 # ---------------------------------------------------------------- 界面
@@ -172,6 +215,18 @@ func _on_backdrop_input(event: InputEvent) -> void:
 func _build() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+
+	_toast = PanelContainer.new()
+	_toast.add_theme_stylebox_override("panel", UiSkin.bar(false, 2))
+	_toast.position = TOAST_POS
+	_toast.size = TOAST_SIZE
+	_toast.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_toast.visible = false
+	add_child(_toast)
+	_toast_label = _label("", 14, UiSkin.RED)
+	_toast_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_toast_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_toast.add_child(_toast_label)
 
 	_backdrop = ColorRect.new()
 	_backdrop.color = Color(0, 0, 0, 0.55)
@@ -181,8 +236,75 @@ func _build() -> void:
 	_backdrop.gui_input.connect(_on_backdrop_input)
 	add_child(_backdrop)
 
+	_build_menu()
+	_build_items()
+
+	dlg = SaveDialog.new()
+	add_child(dlg)
+	dlg.setup(main, plaque_font)
+	dlg.message.connect(flash)
+	dlg.closed.connect(_on_dialog_closed)
+
+	# 菜单按钮最后加：永远画在最上面，弹菜单、开道具框的时候也点得到
+	_toggle_btn = Button.new()
+	_toggle_btn.focus_mode = Control.FOCUS_NONE
+	_toggle_btn.text = "菜单"
+	_toggle_btn.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	_toggle_btn.add_theme_font_override("font", plaque_font)
+	# 字号和边距都是卡着 20px 高度定的：再大一点按钮就会被撑高，压到「跳过情节」上
+	_toggle_btn.add_theme_font_size_override("font_size", 12)
+	_toggle_btn.add_theme_color_override("font_color", UiSkin.RED)
+	_toggle_btn.add_theme_color_override("font_hover_color", UiSkin.RED_HOT)
+	_toggle_btn.add_theme_stylebox_override("normal", UiSkin.bar(false, 0))
+	_toggle_btn.add_theme_stylebox_override("hover", UiSkin.bar(true, 0))
+	_toggle_btn.add_theme_stylebox_override("pressed", UiSkin.bar(true, 0))
+	_toggle_btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
+	_toggle_btn.pressed.connect(_on_toggle)
+	_toggle_btn.position = MENU_POS
+	add_child(_toggle_btn)
+	# size 得在进树之后设：Control 的 size 只会被「最小尺寸」往上顶、不会自己缩回去，
+	# 而最小尺寸要等节点进了树、主题缓存生效才是我们这套字体算出来的值
+	# （早设一步就会按默认主题的字号算成 31px 高，多出来的 11px 正好压到「跳过情节」上）。
+	_toggle_btn.size = MENU_SIZE
+
+## 点右上角那块木牌：开着就收起来，没开就弹出来
+func _on_toggle() -> void:
+	if _modal == "menu":
+		close_menu()
+	else:
+		open_menu()
+
+## 菜单：一竖排木牌，和标题页那几块一个长相
+func _build_menu() -> void:
+	_menu = Control.new()
+	_menu.position = MENU_DOWN
+	_menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_menu.visible = false
+	add_child(_menu)
+	var texts := ["存档", "读档", "隐藏道具", "关闭"]
+	for i in range(texts.size()):
+		var b := UiSkin.text_button(str(texts[i]), plaque_font, 17, MENU_ITEM)
+		b.position = Vector2(0, i * (MENU_ITEM.y + MENU_GAP))
+		b.size = MENU_ITEM
+		b.pressed.connect(_on_menu_item.bind(str(texts[i])))
+		_menu.add_child(b)
+		if i == 2:
+			_menu_items = b
+
+func _on_menu_item(what: String) -> void:
+	match what:
+		"存档":
+			open_slots("save")
+		"读档":
+			open_slots("load")
+		"隐藏道具":
+			open_panel()
+		"关闭":
+			close_menu()
+
+func _build_items() -> void:
 	_box = PanelContainer.new()
-	_box.add_theme_stylebox_override("panel", _panel_style())
+	_box.add_theme_stylebox_override("panel", UiSkin.board())
 	_box.mouse_filter = Control.MOUSE_FILTER_STOP
 	_box.visible = false
 	add_child(_box)
@@ -193,8 +315,8 @@ func _build() -> void:
 
 	var head := HBoxContainer.new()
 	col.add_child(head)
-	head.add_child(_label("隐藏道具", 22, C_TITLE))
-	_progress = _label("", 14, C_TEXT)
+	head.add_child(_label("隐藏道具", 24, UiSkin.RED))
+	_progress = _label("", 14, UiSkin.INK)
 	_progress.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_progress.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
 	_progress.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -203,8 +325,8 @@ func _build() -> void:
 	col.add_child(_sep())
 
 	for s in sets:
-		col.add_child(_label(str(s.get("title", "")), 16, C_TITLE))
-		col.add_child(_label(str(s.get("note", "")), 11, C_NOTE))
+		col.add_child(_label(str(s.get("title", "")), 16, UiSkin.RED))
+		col.add_child(_label(str(s.get("note", "")), 11, UiSkin.INK_NOTE))
 		var grid := GridContainer.new()
 		grid.columns = maxi(1, int(s.get("cols", 2)))
 		grid.add_theme_constant_override("h_separation", 8)
@@ -216,44 +338,15 @@ func _build() -> void:
 
 	col.add_child(_sep())
 	var foot := HBoxContainer.new()
-	foot.add_theme_constant_override("separation", 8)
 	col.add_child(foot)
-	foot.add_child(_btn("存档", _do_save))
-	foot.add_child(_btn("读档", _do_load))
-	foot.add_child(_btn("关闭", close_panel))
-	_status = _label("", 12, C_TEXT)
-	_status.add_theme_font_override("font", ui_font if ui_font != null else panel_font)
-	_status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	_status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	foot.add_child(_status)
+	var back := UiSkin.text_button("关闭", plaque_font, 17, Vector2(96, 40))
+	back.pressed.connect(close_panel)
+	foot.add_child(back)
+	col.add_child(_label("存档、读档在右上角的菜单里，随时可以存；F5 快速存档，F9 快速读档",
+		12, UiSkin.INK_NOTE))
 
-	var hint := _label("Tab 或右上角开关：打开关闭本框 · F5 存档 · F9 读档", 11, C_NOTE)
-	hint.add_theme_font_override("font", ui_font if ui_font != null else panel_font)
-	col.add_child(hint)
-
-	_box.size = PANEL_SIZE
-	_box.position = PANEL_POS
-
-	# 开关最后加：永远画在最上面，面板打开时也点得到
-	_toggle = Button.new()
-	_toggle.focus_mode = Control.FOCUS_NONE
-	_toggle.position = TOGGLE_POS
-	_toggle.size = TOGGLE_SIZE
-	_toggle.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	_toggle.add_theme_font_override("font", panel_font)
-	_toggle.add_theme_font_size_override("font_size", 11)
-	_toggle.add_theme_color_override("font_color", C_TITLE)
-	_toggle.add_theme_color_override("font_hover_color", Color(1, 1, 1))
-	# 开关压在画面上，给文字描一圈黑边，压到花哨的背景也看得清
-	_toggle.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.9))
-	_toggle.add_theme_constant_override("shadow_offset_x", 1)
-	_toggle.add_theme_constant_override("shadow_offset_y", 1)
-	_toggle.add_theme_stylebox_override("normal", _btn_style(Color(0.05, 0.04, 0.03, 0.55), 1))
-	_toggle.add_theme_stylebox_override("hover", _btn_style(Color(0.05, 0.04, 0.03, 0.80), 1))
-	_toggle.add_theme_stylebox_override("pressed", _btn_style(Color(0.05, 0.04, 0.03, 0.88), 1))
-	_toggle.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	_toggle.pressed.connect(toggle_panel)
-	add_child(_toggle)
+	_box.size = ITEMS_SIZE
+	_box.position = ITEMS_POS
 
 func _item_cell(it: Dictionary) -> Control:
 	var row := HBoxContainer.new()
@@ -261,10 +354,10 @@ func _item_cell(it: Dictionary) -> Control:
 	row.custom_minimum_size = Vector2(CELL_W, 18)
 	row.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var k := str(it.get("k", ""))
-	var nm := _label(str(it.get("name", "?")), 14, C_TEXT)
+	var nm := _label(str(it.get("name", "?")), 14, UiSkin.INK)
 	nm.custom_minimum_size = Vector2(NAME_W, 18)
 	nm.clip_text = true
-	var fx := _label(str(it.get("fx", "")), 12, C_FX)
+	var fx := _label(str(it.get("fx", "")), 12, UiSkin.INK_NOTE)
 	# 效果这一格给死宽度：不给的话 BoxContainer 只会按最小宽度摆，文字会被裁掉
 	fx.custom_minimum_size = Vector2(CELL_W - NAME_W - 6.0, 18)
 	fx.clip_text = true
@@ -276,68 +369,18 @@ func _item_cell(it: Dictionary) -> Control:
 func _label(text: String, size: int, color: Color) -> Label:
 	var l := Label.new()
 	l.text = text
-	l.add_theme_font_override("font", panel_font)
+	l.add_theme_font_override("font", plaque_font)
 	l.add_theme_font_size_override("font_size", size)
 	l.add_theme_color_override("font_color", color)
 	l.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return l
 
-func _btn(text: String, cb: Callable) -> Button:
-	var b := Button.new()
-	b.text = text
-	b.focus_mode = Control.FOCUS_NONE
-	b.mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	b.add_theme_font_override("font", panel_font)
-	b.add_theme_font_size_override("font_size", 14)
-	b.add_theme_color_override("font_color", C_TEXT)
-	b.add_theme_color_override("font_hover_color", Color(1, 1, 1))
-	b.custom_minimum_size = Vector2(84, 28)
-	b.add_theme_stylebox_override("normal", _btn_style(C_BTN, 1))
-	b.add_theme_stylebox_override("hover", _btn_style(C_BTN_HOVER, 1))
-	b.add_theme_stylebox_override("pressed", _btn_style(C_BTN_HOVER, 1))
-	b.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	b.pressed.connect(cb)
-	return b
-
-func _panel_style() -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = C_BG
-	s.border_color = C_BORDER
-	s.set_border_width_all(2)
-	s.set_corner_radius_all(6)
-	s.set_content_margin_all(16)
-	return s
-
-func _btn_style(bg: Color, border: int) -> StyleBoxFlat:
-	var s := StyleBoxFlat.new()
-	s.bg_color = bg
-	s.border_color = C_BORDER
-	s.set_border_width_all(border)
-	s.set_corner_radius_all(4)
-	s.content_margin_left = 8
-	s.content_margin_right = 8
-	s.content_margin_top = 2
-	s.content_margin_bottom = 2
-	return s
-
 func _sep() -> Control:
 	var r := ColorRect.new()
-	r.color = Color(0.55, 0.45, 0.26, 0.75)
+	r.color = UiSkin.SEP
 	r.custom_minimum_size = Vector2(0, 1)
 	r.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	return r
-
-func _do_save() -> void:
-	if main == null:
-		return
-	refresh()
-	flash(main.do_save())
-
-func _do_load() -> void:
-	if main == null:
-		return
-	refresh()
-	flash(main.do_load())
 
 # ---------------------------------------------------------------- 刷新
 
@@ -353,8 +396,8 @@ func refresh() -> void:
 		var nm: Label = cell["n"]
 		var fx: Label = cell["f"]
 		nm.text = str(cell["name"]) if has else "？？？"
-		nm.add_theme_color_override("font_color", C_TEXT if has else C_DIM)
+		nm.add_theme_color_override("font_color", UiSkin.INK if has else UiSkin.INK_DIM)
 		fx.text = str(cell["fx"]) if has else ""
 	_progress.text = "已收集 %d 件，共 %d 件" % [got, total]
-	_toggle.text = "隐藏道具 %d/%d" % [got, total]
-	_status.text = ""
+	if _menu_items != null:
+		_menu_items.text = "隐藏道具 %d/%d" % [got, total]

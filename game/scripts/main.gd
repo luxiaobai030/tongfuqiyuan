@@ -15,8 +15,9 @@ extends Control
 ## （客栈里走来走去的伙计、战斗里出招的人物都是这样）。移植版如果只播“整幅逐帧画面”，
 ## 主时间轴一停角色就跟着一起冻住，所以必须把它们单独拿出来按各自的播放头画。
 ##
-## 额外加的（原版没有，见 scripts/tools_panel.gd）：存档 / 读档（F5 / F9，右上角开关里也有按钮）、
-## 隐藏道具图鉴（右上角常驻开关，按 Tab 也能开关，没拿到的道具显示 ？？？）。
+## 额外加的（原版没有，见 scripts/tools_panel.gd）：右上角常驻一块「菜单」木牌，
+## 里面是存档 / 读档（三个档位，F5 / F9 是档位一的快捷键）和隐藏道具图鉴
+## （没拿到的道具显示 ？？？）；标题页卷轴底下还多挂了一块「读档」木牌。
 
 const TOTAL_FRAMES := 4907
 const TICK := 1.0 / 19.0
@@ -40,6 +41,11 @@ const DAMAGE_SPOTS := {
 	"hp": {"at": Vector2(690, 225), "color": Color(1.0, 0.45, 0.36)},
 }
 const HEAL_COLOR := Color(0.5, 0.98, 0.5)
+
+## 标题页额外挂的「读档」木牌（原版没有）。原版标题页那几块牌子是烧进底图的，
+## 这块得能点、还得跟着存档变，所以用同一张木牌贴图自己画一块，摆在卷轴底下那行空地上。
+const TITLE_LOAD_ID := 9001
+const TITLE_LOAD_BOX := [570.7, 438.0, 154.5, 42.6]
 
 @onready var bg_rect: TextureRect = $BG
 @onready var clip_view: Control = $ClipView
@@ -255,6 +261,10 @@ func _render() -> void:
 	var b := _beat_for(cur)
 	_show_layer(b)
 	_items = _items_for(cur, b)
+	# 只有标题页（第 4 帧）用 b0003 这张底图，额外挂的「读档」木牌就加在这一帧
+	if str(frames_data.get("bg", {}).get(str(b), "")) == "b0003":
+		_items = _items.duplicate()
+		_items.append({"k": "btn", "id": TITLE_LOAD_ID, "box": TITLE_LOAD_BOX})
 	var want := {}
 	var gone := _hidden_here()
 	for it in _items:
@@ -393,8 +403,23 @@ func _make_button(id: int, box: Array) -> Control:
 	btn.mouse_entered.connect(_on_hover.bind(id))
 	btn.mouse_exited.connect(_on_hover_out.bind(id, btn))
 	btn.set_meta("id", id)
+	if id == TITLE_LOAD_ID:
+		_dress_title_load(btn)
 	btn_root.add_child(btn)
 	return btn
+
+## 标题页那块「读档」木牌：贴图和字都跟旁边几块烧进底图的牌子对齐
+## （米黄底 + 深棕云纹边 + 朱红隶书，见 scripts/ui_skin.gd）
+func _dress_title_load(btn: Button) -> void:
+	btn.text = "读档"
+	btn.add_theme_font_override("font", panel_font)
+	btn.add_theme_font_size_override("font_size", 22)
+	btn.add_theme_color_override("font_color", UiSkin.RED)
+	btn.add_theme_color_override("font_hover_color", UiSkin.RED_HOT)
+	btn.add_theme_color_override("font_pressed_color", UiSkin.RED_HOT)
+	btn.add_theme_stylebox_override("normal", UiSkin.plaque(false))
+	btn.add_theme_stylebox_override("hover", UiSkin.plaque(true))
+	btn.add_theme_stylebox_override("pressed", UiSkin.plaque(true))
 
 func _hover_style(a: float) -> StyleBoxFlat:
 	var s := StyleBoxFlat.new()
@@ -507,6 +532,10 @@ func _spawn_damage(spot: String, d: int) -> void:
 # ---------------------------------------------------------------- 交互
 
 func _on_button(id: int) -> void:
+	# 标题页那块额外挂的「读档」木牌：点开三档读档框
+	if id == TITLE_LOAD_ID:
+		tools.open_slots("load")
+		return
 	logic.run_button(id)
 	tools.on_button(id)
 	_after_script()
@@ -598,24 +627,24 @@ func _render_if_dirty() -> void:
 
 # ---------------------------------------------------------------- 存档 / 读档
 
-## 存档：变量表 + 隐藏道具收集进度 + 当前帧号，一起写进存档文件
-func do_save() -> String:
+## 存档：变量表 + 隐藏道具收集进度 + 当前帧号，一起写进第 slot 个档位
+func do_save(slot: int = 1) -> String:
 	GameState.progress = {
 		"frame": cur,
 		"halted": halted,
 		"time": Time.get_datetime_string_from_system(false, true),
 	}
-	if not GameState.save_game():
+	if not GameState.save_game(slot):
 		return "存档失败"
-	return "已存档 · 第 %d 天 · %s" % [int(logic.V("day")),
+	return "已存档，%s，第 %d 天 %s" % [GameState.slot_name(slot), int(logic.V("day")),
 		str(GameState.progress["time"]).substr(11, 5)]
 
-## 读档：把存档里的变量和收集进度装回来，画面跳回存档那一刻的帧。
+## 读档：把第 slot 个档位里的变量和收集进度装回来，画面跳回存档那一刻的帧。
 ## 这里故意不重跑那一帧的脚本 —— 脚本效果存档时已经算过一遍了，重跑会把属性再加一次。
-func do_load() -> String:
-	if not GameState.has_save():
-		return "还没有存档"
-	if not GameState.load_game():
+func do_load(slot: int = 1) -> String:
+	if not GameState.has_save(slot):
+		return "%s还没有存档" % GameState.slot_name(slot)
+	if not GameState.load_game(slot):
 		return "存档读不出来"
 	_set_hover(-1)
 	over_rect.visible = false
@@ -626,7 +655,7 @@ func do_load() -> String:
 	dirty = true
 	_render()
 	tools.refresh()
-	return "已读档 · 第 %d 天" % int(logic.V("day"))
+	return "已读档，%s，第 %d 天" % [GameState.slot_name(slot), int(logic.V("day"))]
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventKey) or not event.pressed or event.echo:
@@ -637,17 +666,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			tools.toggle_panel()
 			return
 		KEY_ESCAPE:
-			if tools.panel_open:
-				tools.close_panel()
+			if tools.ui_open():
+				tools.toggle_panel()
 				return
 		KEY_F5:
-			tools.flash(do_save())
+			tools.flash(do_save(1))
 			return
 		KEY_F9:
-			tools.flash(do_load())
+			tools.flash(do_load(1))
 			return
-	# 道具面板开着的时候，按键只在面板里用（z/x/c 这些别再传给游戏，免得背后放出技能）
-	if tools.panel_open:
+	# 菜单 / 道具框 / 存档框开着的时候，按键只在这些框里用
+	# （z/x/c 这些别再传给游戏，免得框还开着背后放出技能）
+	if tools.ui_open():
 		return
 	match k.keycode:
 		KEY_SPACE, KEY_ENTER, KEY_KP_ENTER:

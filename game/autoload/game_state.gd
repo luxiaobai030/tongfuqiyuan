@@ -6,8 +6,14 @@ extends Node
 ## 存档（移植版额外加的，原版没有存档功能）里除了变量表，还记着：
 ##   * items    —— 隐藏道具的收集进度（倾城装四件 + 淘宝珍品十五种）
 ##   * progress —— 存档那一刻游戏停在哪个帧、时间轴是不是在跑
+##
+## 一共三个档位。档位一用的就是当初单档版的文件名 —— 老玩家机器上原来那个存档
+## 直接就是档位一，不用搬家也不会读不出来。
 
 const SAVE_PATH := "user://tongfu_qiyuan_save.json"
+const SAVE_PATH_FMT := "user://tongfu_qiyuan_save_%d.json"
+const SAVE_SLOTS := 3
+const SLOT_NAMES := ["档位一", "档位二", "档位三"]
 const SAVE_VERSION := 2
 
 signal changed
@@ -86,19 +92,54 @@ func to_dict() -> Dictionary:
 	return {"version": SAVE_VERSION, "vars": vars, "log": log_lines,
 		"items": items, "progress": progress}
 
-func save_game() -> bool:
-	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+## 档位对应的存档文件。档位一 = 老的单档文件名，其余按序号排。
+static func slot_path(slot: int) -> String:
+	return SAVE_PATH if slot <= 1 else SAVE_PATH_FMT % slot
+
+## 档位名（「档位一」这种），换算成中文数字，界面上直接用
+static func slot_name(slot: int) -> String:
+	var i := clampi(slot, 1, SAVE_SLOTS) - 1
+	return SLOT_NAMES[i]
+
+func save_game(slot: int = 1) -> bool:
+	var f := FileAccess.open(slot_path(slot), FileAccess.WRITE)
 	if f == null: return false
 	f.store_string(JSON.stringify(to_dict(), "  "))
 	f.close()
 	return true
 
-func has_save() -> bool:
-	return FileAccess.file_exists(SAVE_PATH)
+func has_save(slot: int = 1) -> bool:
+	return FileAccess.file_exists(slot_path(slot))
 
-func load_game() -> bool:
-	if not has_save(): return false
-	var f := FileAccess.open(SAVE_PATH, FileAccess.READ)
+## 存/读档框上那一行摘要：这个档位有没有东西、第几天、什么时候存的。
+## 只读文件头，不碰当前游戏状态。
+func slot_info(slot: int) -> Dictionary:
+	var info := {"exists": false, "day": 0, "frame": 0, "time": ""}
+	var p := slot_path(slot)
+	if not FileAccess.file_exists(p):
+		return info
+	var f := FileAccess.open(p, FileAccess.READ)
+	if f == null:
+		return info
+	var d = JSON.parse_string(f.get_as_text())
+	f.close()
+	if typeof(d) != TYPE_DICTIONARY:
+		return info
+	var sv = d.get("vars", {})
+	var pr = d.get("progress", {})
+	info["exists"] = true
+	if sv is Dictionary:
+		info["day"] = int(sv.get("day", 0))
+	if pr is Dictionary:
+		info["frame"] = int(pr.get("frame", 0))
+		var t := str(pr.get("time", ""))
+		# JSON 里存的是 2026-09-14T12:15:29，界面上只留日期和时间，T 换成空格
+		info["time"] = (t.substr(5, 5) + " " + t.substr(11, 5)) if t.length() >= 16 else t
+	return info
+
+func load_game(slot: int = 1) -> bool:
+	if not has_save(slot): return false
+	var f := FileAccess.open(slot_path(slot), FileAccess.READ)
 	if f == null: return false
 	var txt := f.get_as_text()
 	f.close()

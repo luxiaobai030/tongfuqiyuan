@@ -3,10 +3,11 @@
   hide   —— 把根时间轴上的某些角色换成空壳（得到“没有该角色”的底图，用来渲染背景）
   viewer —— 造一个只放某一个 MovieClip 的临时 SWF（用来单独渲染这个角色自己的逐帧动画）
 """
-import struct, sys
+import os, struct, sys
 sys.stdout.reconfigure(encoding="utf-8")
 
-SRC = r"F:\路小白。。\一些尝试\游戏\同福奇缘_移植\原版\同福奇缘.swf"
+## 默认用原版 SWF；改了文字/素材要重新渲染时，用环境变量 TFQY_SWF 指到改过的副本
+SRC = os.environ.get("TFQY_SWF", r"F:\路小白。。\一些尝试\游戏\同福奇缘_移植\原版\同福奇缘.swf")
 
 # 根时间轴专用标签（ShowFrame / Place / Remove / DoAction / 声音 / 帧标签…），造 viewer 时要去掉
 DROPS = {1, 4, 5, 9, 12, 15, 18, 19, 26, 28, 43, 45, 59}

@@ -29,6 +29,12 @@ ui = json.load(io.open(os.path.join(DATA, "ui.json"), encoding="utf-8"))
 bgs = json.load(io.open(os.path.join(DATA, "frames.json"), encoding="utf-8"))["bg"]
 beats = json.load(io.open(os.path.join(DATA, "beats.json"), encoding="utf-8"))
 
+## 光靠「像素比对」测不出来的一类：战斗胜利结算帧（2545）的奖励框是整条盖在右侧属性栏上的美术，
+## 属性栏那几个数字自己的位置在原版底图里本来就是空白（数字是变量，底图里没有），
+## 所以框压上去时那几格像素没变化。原版里这些数字被框压住看不见，移植版会浮在框上，
+## 这里按帧点名：这一帧属性栏（x 偏右）里的文本框全部藏掉。
+COVERED_BY_ART = {2545: 600}
+
 
 def abbox(a):
     m = a[:, :, 3] > 8
@@ -141,6 +147,11 @@ def build_hidden():
                    if v in prev and prev[v] == b and _covered(D, b)]
             if hit:
                 hidden[str(n)] = sorted(hit)
+    for n, minx in COVERED_BY_ART.items():
+        cur = boxmap(n)
+        hit = sorted(v for v, b in cur.items() if b[0] >= minx)
+        if hit:
+            hidden[str(n)] = sorted(set(hidden.get(str(n), [])) | set(hit))
     json.dump(hidden, io.open(os.path.join(DATA, "hidden.json"), "w", encoding="utf-8"),
               ensure_ascii=False, sort_keys=True)
     print("需要藏起来的文本框：%d 帧，涉及 %d 个" % (len(hidden), sum(len(v) for v in hidden.values())))
