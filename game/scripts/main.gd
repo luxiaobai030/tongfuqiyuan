@@ -106,7 +106,6 @@ var _sfx: Array[AudioStreamPlayer] = []
 var _sfx_next: int = 0
 var _hover_id: int = -1
 var _over_tex: Dictionary = {}
-var _damage_font: Font
 var _hp_prev: Dictionary = {}        # 变量名 → 上一次看到的值
 var _hp_seen: Dictionary = {}        # 变量名 → 上一帧在不在场上（不在场就不算掉血）
 var _float_seq: int = 0
@@ -132,9 +131,6 @@ func _ready() -> void:
 	for v in _load_json("res://data/beats.json", []):
 		beats.append(int(v))
 	_load_fonts()
-	_damage_font = _system_font(["黑体", "SimHei", "Microsoft YaHei"])
-	if _damage_font == null:
-		_damage_font = panel_font
 	_setup_audio()
 	logic = load("res://scripts/ported/logic.gd").new()
 	logic.vars = GameState.vars
@@ -528,7 +524,10 @@ func _spawn_damage(spot: String, d: int) -> void:
 	var col: Color = HEAL_COLOR if d > 0 else cfg.color
 	var lbl := Label.new()
 	lbl.text = ("+%d" % d) if d > 0 else str(d)
-	lbl.add_theme_font_override("font", _damage_font)
+	# 用游戏自己那套字（内嵌的 f34，战斗界面上的生命 / 攻击力就是它），
+	# 别用系统黑体 —— 飘字和旁边那些数字不是一套字，一眼就看出来是外挂上去的
+	if panel_font != null:
+		lbl.add_theme_font_override("font", panel_font)
 	lbl.add_theme_font_size_override("font_size", 30)
 	lbl.add_theme_color_override("font_color", col)
 	lbl.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.02, 0.9))
