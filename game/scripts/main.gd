@@ -47,6 +47,15 @@ const HEAL_COLOR := Color(0.5, 0.98, 0.5)
 const TITLE_LOAD_ID := 9001
 const TITLE_LOAD_BOX := [570.7, 438.0, 154.5, 42.6]
 
+## 「点哪儿都行」那种整屏热区不给刷白色高亮。
+## 原版过剧情的时候整个画面就是一个大按钮（数据里最大 758x947，比 800x600 的画面还大），
+## 它自己没有画，玩家看到的画面在它底下 —— 一刷白就是整屏泛白一下（点剧情时最明显）。
+## 实测按钮只有两类：占画面 <=14% 的真按钮、>=55% 的整屏热区，中间是空的，
+## 所以阈值取多少都行，这里取四分之一。
+const HIT_MAX_COVER := 0.25
+const HOVER_ALPHA := 0.10
+const PRESS_ALPHA := 0.20
+
 @onready var bg_rect: TextureRect = $BG
 @onready var clip_view: Control = $ClipView
 @onready var label_root: Control = $Labels
@@ -397,8 +406,14 @@ func _make_button(id: int, box: Array) -> Control:
 	btn.size = Vector2(float(box[2]), float(box[3]))
 	btn.add_theme_stylebox_override("normal", StyleBoxEmpty.new())
 	btn.add_theme_stylebox_override("focus", StyleBoxEmpty.new())
-	btn.add_theme_stylebox_override("hover", _hover_style(0.10))
-	btn.add_theme_stylebox_override("pressed", _hover_style(0.20))
+	# 整屏热区什么都不画：它底下就是玩家正在看的画面，刷白等于整屏泛白。
+	# 注意得显式给空样式，不能干脆不设 —— 不设会掉回 Godot 默认主题的深灰方块。
+	if _is_whole_screen_hit(box):
+		btn.add_theme_stylebox_override("hover", StyleBoxEmpty.new())
+		btn.add_theme_stylebox_override("pressed", StyleBoxEmpty.new())
+	else:
+		btn.add_theme_stylebox_override("hover", _hover_style(HOVER_ALPHA))
+		btn.add_theme_stylebox_override("pressed", _hover_style(PRESS_ALPHA))
 	btn.pressed.connect(_on_button.bind(id))
 	btn.mouse_entered.connect(_on_hover.bind(id))
 	btn.mouse_exited.connect(_on_hover_out.bind(id, btn))
@@ -426,6 +441,12 @@ func _hover_style(a: float) -> StyleBoxFlat:
 	s.bg_color = Color(1, 1, 1, a)
 	s.set_corner_radius_all(3)
 	return s
+
+## 这块热区是不是「点哪儿都行」的整屏大按钮（是的话不刷白，见 HIT_MAX_COVER）
+func _is_whole_screen_hit(box: Array) -> bool:
+	if box.size() < 4:
+		return false
+	return float(box[2]) * float(box[3]) / (800.0 * 600.0) > HIT_MAX_COVER
 
 func _make_label(id: int, varname: String, box: Array) -> Control:
 	if varname == "":
