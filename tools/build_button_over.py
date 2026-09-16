@@ -36,6 +36,14 @@ beats = json.load(io.open(os.path.join(DATA, "beats.json"), encoding="utf-8"))
 COVERED_BY_ART = {2545: 600}
 
 
+## 属性页（39~180 帧）要单独判定。上面那套「相对上一张底图变了哪些像素」在这里不好使：
+## 压住数字的说明框底色和数字格子的底色是同一片米色，像素差测不出来，所以漏了一批。
+## 换个测法：同一个格子（变量名 + 方框）在属性页各帧里，出现最多的那一片像素就是
+## 「没被盖住的样子」——哪一帧长得跟它不一样，就说明这一帧有东西压在这一格上。
+## 画面用的是「这一帧实际会显示的那张底图」（不是每帧都有自己的一张）。
+ATTR_LO, ATTR_HI = 39, 180
+
+
 def abbox(a):
     m = a[:, :, 3] > 8
     ys, xs = np.nonzero(m)
@@ -68,7 +76,8 @@ def _lighten_only(A, C, ub):
 def build_buttons():
     os.makedirs(OV, exist_ok=True)
     for f in os.listdir(OV):
-        os.remove(os.path.join(OV, f))
+        if f.endswith(".webp"):        # .import 是 Godot 的导入记录，别删
+            os.remove(os.path.join(OV, f))
     out = {}
     used = {}
     for k in ui:
@@ -113,6 +122,42 @@ def build_buttons():
     print("按钮悬停贴图：%d 个，共 %.1f MB" % (len(out), total / 1048576.0))
 
 
+def _hidden_attr(eff):
+    """属性页里被说明框压住的格子。eff: 帧号 -> 这一帧实际显示的底图名。"""
+    def cell(f, box):
+        x0, y0, w, h = [int(round(t)) for t in box]
+        a = np.asarray(Image.open(os.path.join(BG, eff[f] + ".webp")).convert("RGB"))
+        return a[y0:y0 + h, x0:x0 + w].tobytes()
+
+    occ = {}
+    for k, items in ui.items():
+        f = int(k)
+        if not (ATTR_LO <= f <= ATTR_HI) or f not in eff:
+            continue
+        for it in items:
+            if it.get("k") != "et" or not it.get("var"):
+                continue
+            box = tuple(round(float(t), 1) for t in it["box"])
+            occ.setdefault((it["var"], box), []).append(f)
+
+    out = {}
+    for (var, box), fr in occ.items():
+        fr = sorted(fr)
+        if len(fr) < 3:
+            continue
+        cnt = {}
+        for f in fr:
+            key = cell(f, box)
+            cnt[key] = cnt.get(key, 0) + 1
+        canon, n = max(cnt.items(), key=lambda kv: kv[1])
+        if n < 3:
+            continue
+        for f in fr:
+            if cell(f, box) != canon:
+                out.setdefault(str(f), set()).add(var)
+    return {k: sorted(v) for k, v in out.items()}
+
+
 # ---------------------------------------------------------------- 2. 被盖住的文本框
 def build_hidden():
     cache = {}
@@ -142,11 +187,21 @@ def build_hidden():
         D = np.abs(A - img(pg)).max(axis=2) > 16
         prev = boxmap(beats[beats.index(lo) - 1]) if lo in beats and beats.index(lo) > 0 else {}
         for n in [lo] + [f for f in range(lo + 1, hi + 1) if ui.get(str(f))]:
+            if ATTR_LO <= n <= ATTR_HI:
+                continue               # 属性页交给 _hidden_attr
             cur = boxmap(n)
             hit = [v for v, b in cur.items()
                    if v in prev and prev[v] == b and _covered(D, b)]
             if hit:
                 hidden[str(n)] = sorted(hit)
+    eff = {}
+    for (lo, hi, fg, pg) in ranges:
+        if fg is None:
+            continue
+        for f in range(lo, hi + 1):
+            eff[f] = fg
+    for n, vs in _hidden_attr(eff).items():
+        hidden[n] = sorted(set(hidden.get(n, [])) | set(vs))
     for n, minx in COVERED_BY_ART.items():
         cur = boxmap(n)
         hit = sorted(v for v, b in cur.items() if b[0] >= minx)

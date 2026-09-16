@@ -34,11 +34,12 @@ const FONT_FALLBACK := {180: 15, 1072: 171}
 const DEVICE_FONTS := {180: ["Arial"], 1072: ["黑体", "SimHei", "Microsoft YaHei"]}
 const ALIGN_MAP := {0: HORIZONTAL_ALIGNMENT_LEFT, 1: HORIZONTAL_ALIGNMENT_RIGHT, 2: HORIZONTAL_ALIGNMENT_CENTER}
 
-## 伤害飘字（原版没有）：战斗里敌我掉血 / 回血时，在对应人物身上飘一个数字
+## 伤害飘字（原版没有）：战斗里敌我掉血 / 回血时，在对应人物头顶上飘一个数字
 const DAMAGE_SPOTS := {
 	## 敌人只报掉血：战斗结束把它的血存回去（diren_hplinshi）不是战斗事件，不该飘
-	"diren_HP": {"at": Vector2(130, 235), "color": Color(1.0, 0.93, 0.42), "dmg_only": true},
-	"hp": {"at": Vector2(690, 225), "color": Color(1.0, 0.45, 0.36)},
+	## 落点定在人物头顶：下面留出数字往上飘的那一段，别糊在人物身上
+	"diren_HP": {"at": Vector2(130, 150), "color": Color(1.0, 0.93, 0.42), "dmg_only": true},
+	"hp": {"at": Vector2(690, 150), "color": Color(1.0, 0.45, 0.36)},
 }
 const HEAL_COLOR := Color(0.5, 0.98, 0.5)
 
@@ -530,8 +531,7 @@ func _spawn_damage(spot: String, d: int) -> void:
 		lbl.add_theme_font_override("font", panel_font)
 	lbl.add_theme_font_size_override("font_size", 30)
 	lbl.add_theme_color_override("font_color", col)
-	lbl.add_theme_color_override("font_outline_color", Color(0.1, 0.06, 0.02, 0.9))
-	lbl.add_theme_constant_override("outline_size", 8)
+	# 不加描边 / 外发光：旁边那些数字都是干净的一层，飘字带上黑边就显得是外挂上去的
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	lbl.size = Vector2(150, 44)

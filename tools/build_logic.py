@@ -52,6 +52,18 @@ if 2545 in frames:
         code = code.replace(old, new)
     frames[2545] = code
 
+## 文本勘误：原版 SWF 里就写错的字，照搬下来游戏里也是错的。
+TEXT_FIXES = [("赛貂禅", "赛貂蝉")]   # 预览里的人物是「赛貂蝉」，原版误写成「禅」
+def _fix_text(s):
+    for a, b in TEXT_FIXES:
+        s = s.replace(a, b)
+    return s
+for _n in list(frames):
+    frames[_n] = _fix_text(frames[_n])
+for _bid in buttons:
+    for _k in list(buttons[_bid]):
+        buttons[_bid][_k] = _fix_text(buttons[_bid][_k])
+
 def fname(prefix, n): return "_%s%s" % (prefix, n)
 
 buf = io.StringIO()
