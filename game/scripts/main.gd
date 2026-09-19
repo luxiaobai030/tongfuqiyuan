@@ -43,6 +43,12 @@ const DAMAGE_SPOTS := {
 }
 const HEAL_COLOR := Color(0.5, 0.98, 0.5)
 
+## 「点不动」的提示（原版没有）：小贝页那两个「允许」条件不够时原版一声不响，
+## 玩家分不清是条件没到还是按钮坏了。朱红和游戏自己木牌上的字一个色（ui_skin.gd）。
+const TIP_COLOR := Color8(153, 0, 0)
+const TIP_SIZE := 22
+const TIP_RISE := 34.0
+
 ## 标题页额外挂的「读档」木牌（原版没有）。原版标题页那几块牌子是烧进底图的，
 ## 这块得能点、还得跟着存档变，所以用同一张木牌贴图自己画一块，摆在卷轴底下那行空地上。
 const TITLE_LOAD_ID := 9001
@@ -110,6 +116,7 @@ var _over_tex: Dictionary = {}
 var _hp_prev: Dictionary = {}        # 变量名 → 上一次看到的值
 var _hp_seen: Dictionary = {}        # 变量名 → 上一帧在不在场上（不在场就不算掉血）
 var _float_seq: int = 0
+var _last_click: int = -1            # 刚点的按钮 id（提示要飘在它旁边）
 
 func _ready() -> void:
 	randomize()
@@ -141,6 +148,8 @@ func _ready() -> void:
 	logic.clip_play_cb = _clip_play
 	logic.clip_stop_cb = _clip_stop
 	tools.setup(self, panel_font, _items_cfg)
+	# 剧本里让按钮说一句「为什么点不动」（原版没有，见 tools/build_logic.py 的 XB_TIPS）
+	logic.tip_cb = _on_tip
 	_enter_frame(1)
 	_drain()
 
@@ -523,29 +532,50 @@ func _has_item_var(varname: String) -> bool:
 func _spawn_damage(spot: String, d: int) -> void:
 	var cfg: Dictionary = DAMAGE_SPOTS[spot]
 	var col: Color = HEAL_COLOR if d > 0 else cfg.color
+	_spawn_float(("+%d" % d) if d > 0 else str(d), Vector2(cfg.at), col, 30, 150.0, 50.0)
+
+## 按钮点不动的时候，把原因飘在按钮旁边（原版一声不响，玩家分不清条件没到还是坏了）。
+## 只说一句、不弹框 —— 这些页面本来就是「条件写在旁边，不够就明说」的说明页。
+func _on_tip(msg: String) -> void:
+	var at := Vector2(400.0, 300.0)
+	var box := _box_of(_last_click)
+	if box.size() >= 4:
+		at = Vector2(float(box[0]) - 8.0, float(box[1]) + float(box[3]) * 0.5)
+	_spawn_float(msg, at, TIP_COLOR, TIP_SIZE, -1.0, TIP_RISE)
+
+## 飘字的公共部分。box_w 给负数表示 at 是右边缘（提示贴着按钮左边排），否则 at 是中心。
+func _spawn_float(text: String, at: Vector2, col: Color, size: int, box_w: float, rise: float) -> void:
 	var lbl := Label.new()
-	lbl.text = ("+%d" % d) if d > 0 else str(d)
+	lbl.text = text
 	# 用游戏自己那套字（内嵌的 f34，战斗界面上的生命 / 攻击力就是它），
 	# 别用系统黑体 —— 飘字和旁边那些数字不是一套字，一眼就看出来是外挂上去的
 	if panel_font != null:
 		lbl.add_theme_font_override("font", panel_font)
-	lbl.add_theme_font_size_override("font_size", 30)
+	lbl.add_theme_font_size_override("font_size", size)
 	lbl.add_theme_color_override("font_color", col)
 	# 不加描边 / 外发光：旁边那些数字都是干净的一层，飘字带上黑边就显得是外挂上去的
 	lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	lbl.size = Vector2(150, 44)
+	var wide := box_w
+	if wide < 0.0:
+		wide = 150.0
+		if panel_font != null:
+			wide = maxf(60.0, panel_font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x + 10.0)
+	lbl.size = Vector2(wide, 44)
 	lbl.pivot_offset = lbl.size * 0.5
 	lbl.scale = Vector2(1.35, 1.35)
 	_float_seq += 1
-	## 连着挨打的时候错开一点，不然几个数字会叠在一起
+	## 连着来的时候错开一点，不然几句会叠在一起
 	var jitter := float((_float_seq * 29) % 46 - 23)
-	lbl.position = Vector2(cfg.at) + Vector2(jitter - 75.0, -22.0)
+	var pos := at + Vector2(jitter, 0.0)
+	pos.x -= wide if box_w < 0.0 else wide * 0.5
+	pos.y -= lbl.size.y * 0.5
+	lbl.position = pos
 	float_root.add_child(lbl)
 	var tw := lbl.create_tween()
 	tw.set_parallel(true)
 	tw.tween_property(lbl, "scale", Vector2.ONE, 0.16).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
-	tw.tween_property(lbl, "position:y", lbl.position.y - 50.0, 0.85).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tw.tween_property(lbl, "position:y", lbl.position.y - rise, 0.85).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw.tween_property(lbl, "modulate:a", 0.0, 0.45).set_delay(0.4)
 	tw.chain().tween_callback(lbl.queue_free)
 
@@ -553,6 +583,7 @@ func _spawn_damage(spot: String, d: int) -> void:
 
 func _on_button(id: int) -> void:
 	# 标题页那块额外挂的「读档」木牌：点开三档读档框
+	_last_click = id
 	if id == TITLE_LOAD_ID:
 		tools.open_slots("load")
 		return

@@ -64,6 +64,43 @@ for _bid in buttons:
     for _k in list(buttons[_bid]):
         buttons[_bid][_k] = _fix_text(buttons[_bid][_k])
 
+## 小贝页的两个「允许」（书院后山探险 / 西凉河摸鱼）：
+##   1) 白天/晚上两版原本按 xxbb 分（第 24 帧《晚上》置 1），可这个标记再没被清过 ——
+##      第 19 帧《衣着1》早上只把 time0 清 0。于是「晚上那版」粘住了：过完第一夜，
+##      每次进小贝页都是它，而晚上那版的两个按钮（角色 368）原版根本没写动作，
+##      点下去什么都不发生 —— 玩家看到的就是两个能点却点不动的按钮。
+##      time0 才是真正的白天/晚上（第 19 帧 0、第 24 帧 1），这两个按钮改看它。
+##   2) 条件不够时原版一声不响，玩家分不清是「条件没到」还是「按钮坏了」，
+##      被拦下来的时候补一句话（tishi → UI 层飘字）。条件本身一个字没动。
+XB_ROUTE = ("142", "194")
+for _bid in XB_ROUTE:
+    assert 'if _eq(V("xxbb"), 1):' in buttons[_bid]["release"], _bid
+    buttons[_bid]["release"] = buttons[_bid]["release"].replace(
+        'if _eq(V("xxbb"), 1):', 'if _eq(V("time0"), 1):')
+
+XB_TIPS = {
+    "345": [('_lt(V("XB_xuexi"), 60)', "小贝的学习不到60"),
+            ('_lt(V("XB_tongxin"), 60)', "小贝的童心不到60")],
+    "346": [('_lt(V("XB_xuexi"), 100)', "小贝的学习不到100"),
+            ('_lt(V("XB_tongxin"), 100)', "小贝的童心不到100"),
+            ('_lt(V("money"), 300)', "铜钱不到300文")],
+    "369": [('_lt(V("XB_xuexi"), 60)', "小贝的学习不到60"),
+            ('_lt(V("XB_tongxin"), 60)', "小贝的童心不到60"),
+            ('_ne(V("time0"), 0)', "晚上不能外出")],
+    "370": [('_lt(V("XB_xuexi"), 100)', "小贝的学习不到100"),
+            ('_lt(V("XB_tongxin"), 100)', "小贝的童心不到100"),
+            ('_lt(V("money"), 300)', "铜钱不到300文"),
+            ('_ne(V("time0"), 0)', "晚上不能外出")],
+}
+for _bid, _checks in XB_TIPS.items():
+    _code = buttons[_bid]["release"]
+    _guard = ""
+    for _test, _msg in _checks:
+        _var = re.search(r'V\("(\w+)"\)', _test).group(1)
+        assert 'V("%s")' % _var in _code, "按钮 %s 里找不到 %s，转译是不是变了" % (_bid, _var)
+        _guard += '\tif %s:\n\t\ttishi("%s")\n\t\treturn\n' % (_test, _msg)
+    buttons[_bid]["release"] = _guard + _code
+
 def fname(prefix, n): return "_%s%s" % (prefix, n)
 
 buf = io.StringIO()
@@ -82,6 +119,11 @@ w('func clip_play(nm: String) -> void:\n')
 w('\tif clip_play_cb.is_valid(): clip_play_cb.call(nm)\n')
 w('func clip_stop(nm: String) -> void:\n')
 w('\tif clip_stop_cb.is_valid(): clip_stop_cb.call(nm)\n\n')
+w('## 按钮点不动的时候，让剧本把原因说出来（原版没有，见上面 XB_TIPS）。\n')
+w('## UI 层不接 tip_cb 就当没发生（探针用得上）。\n')
+w('var tip_cb := Callable()\n')
+w('func tishi(msg: String) -> void:\n')
+w('\tif tip_cb.is_valid(): tip_cb.call(msg)\n\n')
 w('func _num(x) -> float:\n')
 w('\tif x is bool: return 1.0 if x else 0.0\n')
 w('\tif x is String: return float(x) if x.is_valid_float() else 0.0\n')

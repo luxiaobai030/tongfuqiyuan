@@ -14,6 +14,12 @@ func clip_play(nm: String) -> void:
 func clip_stop(nm: String) -> void:
 	if clip_stop_cb.is_valid(): clip_stop_cb.call(nm)
 
+## 按钮点不动的时候，让剧本把原因说出来（原版没有，见上面 XB_TIPS）。
+## UI 层不接 tip_cb 就当没发生（探针用得上）。
+var tip_cb := Callable()
+func tishi(msg: String) -> void:
+	if tip_cb.is_valid(): tip_cb.call(msg)
+
 func _num(x) -> float:
 	if x is bool: return 1.0 if x else 0.0
 	if x is String: return float(x) if x.is_valid_float() else 0.0
@@ -6840,7 +6846,7 @@ func _b141() -> void:
 	G(119)
 
 func _b142() -> void:
-	if _eq(V("xxbb"), 1):
+	if _eq(V("time0"), 1):
 		G(142)
 	else:
 		G(141)
@@ -6926,7 +6932,7 @@ func _b193() -> void:
 	G(119)
 
 func _b194() -> void:
-	if _eq(V("xxbb"), 1):
+	if _eq(V("time0"), 1):
 		G(142)
 	else:
 		G(141)
@@ -7190,6 +7196,12 @@ func _b334() -> void:
 		resume_mm()
 
 func _b345() -> void:
+	if _lt(V("XB_xuexi"), 60):
+		tishi("小贝的学习不到60")
+		return
+	if _lt(V("XB_tongxin"), 60):
+		tishi("小贝的童心不到60")
+		return
 	if (_truth(_ge(V("XB_xuexi"), 60)) and _truth(_ge(V("XB_tongxin"), 60))):
 		if _eq(V("waichu"), 0):
 			setv("XB_xuexi", _sub(V("XB_xuexi"), 30))
@@ -7203,6 +7215,15 @@ func _b345() -> void:
 				G(145)
 
 func _b346() -> void:
+	if _lt(V("XB_xuexi"), 100):
+		tishi("小贝的学习不到100")
+		return
+	if _lt(V("XB_tongxin"), 100):
+		tishi("小贝的童心不到100")
+		return
+	if _lt(V("money"), 300):
+		tishi("铜钱不到300文")
+		return
 	if (_truth((_truth(_ge(V("XB_xuexi"), 100)) and _truth(_ge(V("XB_tongxin"), 100)))) and _truth(_ge(V("money"), 300))):
 		if _eq(V("waichu"), 0):
 			setv("XB_xuexi", _sub(V("XB_xuexi"), 45))
@@ -7255,6 +7276,15 @@ func _b367_o() -> void:
 	G(141)
 
 func _b369() -> void:
+	if _lt(V("XB_xuexi"), 60):
+		tishi("小贝的学习不到60")
+		return
+	if _lt(V("XB_tongxin"), 60):
+		tishi("小贝的童心不到60")
+		return
+	if _ne(V("time0"), 0):
+		tishi("晚上不能外出")
+		return
 	if (_truth((_truth(_ge(V("XB_xuexi"), 60)) and _truth(_ge(V("XB_tongxin"), 60)))) and _truth(_eq(V("time0"), 0))):
 		if _eq(V("waichu"), 0):
 			setv("XB_xuexi", _sub(V("XB_xuexi"), 30))
@@ -7267,6 +7297,18 @@ func _b369() -> void:
 			G(145)
 
 func _b370() -> void:
+	if _lt(V("XB_xuexi"), 100):
+		tishi("小贝的学习不到100")
+		return
+	if _lt(V("XB_tongxin"), 100):
+		tishi("小贝的童心不到100")
+		return
+	if _lt(V("money"), 300):
+		tishi("铜钱不到300文")
+		return
+	if _ne(V("time0"), 0):
+		tishi("晚上不能外出")
+		return
 	if (_truth((_truth((_truth(_ge(V("XB_xuexi"), 100)) and _truth(_ge(V("XB_tongxin"), 100)))) and _truth(_ge(V("money"), 300)))) and _truth(_eq(V("time0"), 0))):
 		if _eq(V("waichu"), 0):
 			setv("XB_xuexi", _sub(V("XB_xuexi"), 45))
