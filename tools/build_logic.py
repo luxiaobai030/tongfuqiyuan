@@ -39,6 +39,13 @@ for d in sorted(os.listdir(S)):
                     code = convert(src)
                     buttons[bid]["release"] = (prev + code) if prev else code
 
+## 勘误：老白「鬼影手套」的成交画面（第 1956 帧）在原版里没有任何脚本。
+##   1955 帧的按钮 1984 扣掉 3000 文后 gotoAndPlay(1956)，可 1956~1960 都没有 stop()，
+##   时间轴会顺着播到 1961（b1233「算了，我不喜欢冒险」）—— 玩家钱照扣，看到的却是没买。
+##   1956 这一帧本来就是给玩家看成交结果、点全屏按钮 1237 回客栈的，补一个 stop。
+for _n in (1956,):
+    frames[_n] = frames.get(_n, "") + "\thalt_mm()\n"
+
 ## 用户要求：战斗胜利的奖励翻倍。
 ## 第 2545 帧是战斗胜利的结算（原版：生命 +3 / 修为 +5 / 技力 +10 / 威望 +1 / 铜钱 +50）。
 REWARD_X2 = [("hp", 3), ("xiuwei", 5), ("ZG_JL", 10), ("WLT", 1), ("money", 50)]
@@ -170,6 +177,13 @@ w('func halt_mm() -> void: halted = true\n')
 w('func resume_mm() -> void: halted = false\n')
 w('func stop_sounds() -> void: want_stop_sounds = true\n')
 w('func G(t) -> void:\n\tjump.call(int(t))\n\n')
+w('## gotoAndStop(t)：跳过去之后停在那一帧（Flash 的原义）。\n')
+w('## 落停要等跳到的那一帧跑完再决定，所以先只记一个标志，由 main.gd 的\n')
+w('## _drain() 消费：除非那一帧自己又跳走了，否则就停在那里。\n')
+w('var stop_after_jump := false\n')
+w('func GSTOP(t) -> void:\n')
+w('\tstop_after_jump = true\n')
+w('\tjump.call(int(t))\n\n')
 
 w('func run_frame(n: int) -> void:\n\tmatch n:\n')
 for n in sorted(frames):

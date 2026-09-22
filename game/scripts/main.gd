@@ -253,7 +253,16 @@ func _drain() -> void:
 		guard += 1
 		var t := pending
 		pending = 0
+		# gotoAndStop(t) 的「落停」：原版 Flash 跳过去之后就停在那儿。
+		# _enter_frame 会把逻辑层的 halted 清掉，所以要先把标志收下、
+		# 等这一帧的脚本跑完（它自己没再跳走）再补上停止。
+		var stop_here: bool = logic.stop_after_jump
+		logic.stop_after_jump = false
 		_enter_frame(t)
+		if stop_here and pending == 0:
+			logic.halted = true
+			halted = true
+			break
 
 func _enter_frame(n: int) -> void:
 	cur = clampi(n, 1, TOTAL_FRAMES)
@@ -498,6 +507,13 @@ func _refresh_labels() -> void:
 	for c in label_root.get_children():
 		if c.has_meta("varname"):
 			(c as Label).text = _val_text(str(c.get_meta("varname")))
+
+## 作弊器改了数值之后：画面上那些数字（铜钱、生命……）立刻跟着变。
+## 只重读标签文字，下一帧再走一次 _render，不在这里重建节点
+## （这个函数是从面板按钮的信号里调进来的，当场重建会把发信号的按钮释放掉）。
+func refresh_numbers() -> void:
+	_refresh_labels()
+	dirty = true
 
 # ---------------------------------------------------------------- 伤害飘字
 

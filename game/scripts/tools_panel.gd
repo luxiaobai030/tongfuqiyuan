@@ -1,9 +1,10 @@
 extends Control
 ## 右上角的菜单 + 移植版额外加的几块界面（原版都没有）。
 ##
-## 右上角常驻一块小木牌「菜单」，点开是四项：存档 / 读档 / 隐藏道具 / 关闭。
+## 右上角常驻一块小木牌「菜单」，点开是五项：存档 / 读档 / 隐藏道具 / 作弊器 / 关闭。
 ##   * 存档、读档 —— 三个档位随便挑，见 scripts/save_dialog.gd
 ##   * 隐藏道具   —— 十九件隐藏道具的图鉴，没拿到的显示 ？？？，见 hidden_items.json
+##   * 作弊器     —— 改铜钱、老白后发盗窃成功率（cc）等几个常用数值，纯移植版加的
 ##
 ## 位置是挑过的：只占最上面那条 20px，正好落在剧情帧「跳过情节」按钮上边那条空白里，
 ## 不挡它。菜单弹出来的是一竖排木牌，和标题页那几块一模一样。
@@ -43,11 +44,13 @@ var by_tbwp: Dictionary = {}       # 帧号 → [[随机数下限, 上限, 道�
 var panel_open: bool = false       ## 隐藏道具框开着没有
 var dlg: SaveDialog = null         ## 存档 / 读档框
 
-var _modal := ""                   ## "" / "menu" / "items"
+var _modal := ""                   ## "" / "menu" / "items" / "cheat"
 var _menu: Control
 var _toggle_btn: Button
 var _backdrop: ColorRect
 var _box: PanelContainer
+var _cheat_box: PanelContainer
+var _cheat_edit: Dictionary = {}   ## 变量名 → 那一格输入框
 var _progress: Label
 var _toast: PanelContainer
 var _toast_label: Label
@@ -136,6 +139,7 @@ func toggle_panel() -> void:
 	if ui_open():
 		close_menu()
 		close_panel()
+		close_cheat()
 		if dlg != null:
 			dlg.close()
 	else:
@@ -157,7 +161,12 @@ func close_menu() -> void:
 	if _modal == "menu":
 		_modal = ""
 	_menu.visible = false
-	_backdrop.visible = panel_open
+	_sync_backdrop()
+
+## 黑幕：菜单浅一点（背后还看得见），道具框 / 作弊器深一点；没有弹窗就藏起来
+func _sync_backdrop() -> void:
+	_backdrop.visible = _modal != ""
+	_backdrop.color = Color(0, 0, 0, 0.28) if _modal == "menu" else Color(0, 0, 0, 0.55)
 
 func open_panel() -> void:
 	close_menu()
@@ -173,10 +182,96 @@ func close_panel() -> void:
 	if _modal == "items":
 		_modal = ""
 	panel_open = false
-	_backdrop.visible = false
 	_box.visible = false
 	_toggle_btn.visible = true
+	_sync_backdrop()
 	refresh()
+
+# ---------------------------------------------------------------- 作弊器
+
+## 常用数值，改完点「设定」立刻生效。名字和原版变量一致（V() 不区分大小写）。
+const CHEAT_POS := Vector2(180, 66)
+const CHEAT_SIZE := Vector2(446, 436)
+const CHEAT_FIELDS := [
+	["money", "铜钱（文）"],
+	["cc", "老白后发盗窃成功率 cc"],
+	["ZG_JL", "掌柜技力"],
+	["xiuwei", "修为"],
+	["hp", "生命"],
+	["WLT", "威望"],
+]
+
+func open_cheat() -> void:
+	close_menu()
+	close_panel()
+	_modal = "cheat"
+	_cheat_sync()
+	_sync_backdrop()
+	_cheat_box.visible = true
+	_toggle_btn.visible = false
+
+func close_cheat() -> void:
+	if _modal == "cheat":
+		_modal = ""
+	_cheat_box.visible = false
+	_toggle_btn.visible = true
+	_sync_backdrop()
+
+## 打开时把当前值填进输入框（只在打开那一刻同步，免得边打字边被游戏改回去）
+func _cheat_sync() -> void:
+	var lg = main.get("logic") if main != null else null
+	if lg == null:
+		return
+	for varname in _cheat_edit:
+		var ed: LineEdit = _cheat_edit[varname]
+		var v = lg.V(str(varname))
+		ed.text = "" if v == null else str(int(roundf(float(v))) if (v is float or v is int) else v)
+
+func _cheat_name(varname: String) -> String:
+	for row in CHEAT_FIELDS:
+		if str(row[0]) == varname:
+			return str(row[1])
+	return varname
+
+func _on_cheat_set(varname: String) -> void:
+	var ed: LineEdit = _cheat_edit.get(varname)
+	if ed == null or main == null:
+		return
+	var txt := ed.text.strip_edges()
+	if not txt.is_valid_float():
+		flash("「%s」要填数字" % _cheat_name(varname))
+		return
+	var value := int(roundf(float(txt)))
+	_cheat_put(varname, value)
+	flash("%s 已改成 %d" % [_cheat_name(varname), value])
+
+func _on_cheat_money(add: int) -> void:
+	var lg = main.get("logic") if main != null else null
+	if lg == null:
+		return
+	_cheat_put("money", int(roundf(float(lg.V("money")))) + add)
+	_cheat_sync()
+	flash("铜钱 +%d" % add)
+
+## 一次把几个常用项都拉满（铜钱多给点，cc 到 4 = 盗窃必中）
+func _on_cheat_fill() -> void:
+	_cheat_put("cc", 4)
+	_cheat_put("ZG_JL", 9999)
+	_cheat_put("xiuwei", 9999)
+	_cheat_put("hp", 9999)
+	_cheat_put("WLT", 9999)
+	_cheat_sync()
+	flash("已拉满：cc=4、技力 / 修为 / 生命 / 威望 都是 9999")
+
+func _cheat_put(varname: String, value: int) -> void:
+	var lg = main.get("logic") if main != null else null
+	if lg == null:
+		return
+	lg.setv(varname, value)
+	# 铜钱在画面上是 money_tishi（「1234文」），不跟着改的话改了钱也看不出来
+	if varname == "money":
+		lg.setv("money_tishi", "%d文" % value)
+	main.refresh_numbers()
 
 ## 存档 / 读档框（标题页的「读档」按钮和菜单里都走这里）
 func open_slots(which: String) -> void:
@@ -209,6 +304,7 @@ func _on_backdrop_input(event: InputEvent) -> void:
 		if mb.pressed and mb.button_index == MOUSE_BUTTON_LEFT:
 			close_menu()
 			close_panel()
+			close_cheat()
 
 # ---------------------------------------------------------------- 界面
 
@@ -238,6 +334,7 @@ func _build() -> void:
 
 	_build_menu()
 	_build_items()
+	_build_cheat()
 
 	dlg = SaveDialog.new()
 	add_child(dlg)
@@ -281,7 +378,7 @@ func _build_menu() -> void:
 	_menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_menu.visible = false
 	add_child(_menu)
-	var texts := ["存档", "读档", "隐藏道具", "关闭"]
+	var texts := ["存档", "读档", "隐藏道具", "作弊器", "关闭"]
 	for i in range(texts.size()):
 		var b := UiSkin.text_button(str(texts[i]), plaque_font, 17, MENU_ITEM)
 		b.position = Vector2(0, i * (MENU_ITEM.y + MENU_GAP))
@@ -299,8 +396,72 @@ func _on_menu_item(what: String) -> void:
 			open_slots("load")
 		"隐藏道具":
 			open_panel()
+		"作弊器":
+			open_cheat()
 		"关闭":
 			close_menu()
+
+func _build_cheat() -> void:
+	_cheat_box = PanelContainer.new()
+	_cheat_box.add_theme_stylebox_override("panel", UiSkin.board())
+	_cheat_box.mouse_filter = Control.MOUSE_FILTER_STOP
+	_cheat_box.visible = false
+	add_child(_cheat_box)
+
+	var col := VBoxContainer.new()
+	col.add_theme_constant_override("separation", 7)
+	_cheat_box.add_child(col)
+
+	var head := HBoxContainer.new()
+	col.add_child(head)
+	head.add_child(_label("作弊器", 24, UiSkin.RED))
+
+	col.add_child(_label("改完点「设定」立刻生效，当前这一帧的数字马上跟着变。", 12, UiSkin.INK_NOTE))
+
+	col.add_child(_sep())
+
+	for row_def in CHEAT_FIELDS:
+		var varname := str(row_def[0])
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 8)
+		col.add_child(row)
+		var nm := _label(str(row_def[1]), 16, UiSkin.INK)
+		nm.custom_minimum_size = Vector2(178, 38)
+		row.add_child(nm)
+		var ed := LineEdit.new()
+		ed.custom_minimum_size = Vector2(112, 38)
+		ed.add_theme_font_override("font", plaque_font)
+		ed.add_theme_font_size_override("font_size", 16)
+		ed.add_theme_color_override("font_color", UiSkin.RED)
+		ed.add_theme_color_override("font_selected_color", Color(1, 1, 1))
+		ed.add_theme_color_override("font_placeholder_color", UiSkin.INK_DIM)
+		ed.add_theme_color_override("caret_color", UiSkin.RED)
+		ed.add_theme_stylebox_override("normal", UiSkin.bar(false, 6))
+		ed.add_theme_stylebox_override("focus", UiSkin.bar(true, 6))
+		row.add_child(ed)
+		_cheat_edit[varname] = ed
+		var setbtn := UiSkin.text_button("设定", plaque_font, 15, Vector2(80, 38))
+		setbtn.pressed.connect(_on_cheat_set.bind(varname))
+		row.add_child(setbtn)
+
+	col.add_child(_label("cc 是原版第 2605 / 3521 帧盗窃判定的加成：random(5) ≥ 4-cc 就算成功，cc=4 必中。", 11, UiSkin.INK_NOTE))
+	col.add_child(_label("原版睡一觉（第 354 帧）会给 cc=3；买鬼影手套原本说加到 70%，但原版没写这句。", 11, UiSkin.INK_NOTE))
+
+	col.add_child(_sep())
+	var foot := HBoxContainer.new()
+	col.add_child(foot)
+	var plus := UiSkin.text_button("铜钱 +10000", plaque_font, 15, Vector2(150, 40))
+	plus.pressed.connect(_on_cheat_money.bind(10000))
+	foot.add_child(plus)
+	var fill := UiSkin.text_button("全部拉满", plaque_font, 15, Vector2(120, 40))
+	fill.pressed.connect(_on_cheat_fill)
+	foot.add_child(fill)
+	var back := UiSkin.text_button("关闭", plaque_font, 15, Vector2(96, 40))
+	back.pressed.connect(close_cheat)
+	foot.add_child(back)
+
+	_cheat_box.size = CHEAT_SIZE
+	_cheat_box.position = CHEAT_POS
 
 func _build_items() -> void:
 	_box = PanelContainer.new()

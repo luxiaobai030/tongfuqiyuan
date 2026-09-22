@@ -257,7 +257,10 @@ def emit_stmt(s, ind):
             return pad + 'G(%s)\n' % emit_expr(args[0])
         if name in ("gotoAndStop", "gotoAndStopIf"):
             if not args: return pad + "pass\n"
-            return pad + 'G(%s)\n' % emit_expr(args[0])
+            # gotoAndStop(t)：跳过去之后停在那一帧（Flash 的原义）。
+            # 以前和 gotoAndPlay 一样译成 G()，时间轴会接着往下滚 —— 无双页第二个加点
+            # 按钮的 rollOver 就是 gotoAndStop(129)，结果从 129 一路播到 141 的小贝页。
+            return pad + 'GSTOP(%s)\n' % emit_expr(args[0])
         if name == "stop":
             return pad + "halt_mm()\n"
         if name == "play":
